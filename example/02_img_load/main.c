@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_open_window.c                                   :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/30 16:47:45 by jisokang          #+#    #+#             */
-/*   Updated: 2021/06/30 17:00:39 by jisokang         ###   ########.fr       */
+/*   Created: 2021/07/01 00:33:16 by jisokang          #+#    #+#             */
+/*   Updated: 2021/07/01 02:18:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../mlx/mlx.h"
+#include <stdio.h>
+#include "../../mlx/mlx.h"
 
-int		main(void)
+int	main(void)
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+
+	int		img_width;
+	int		img_height;
 
 	mlx = mlx_init();
-	win = mlx_new_window(mlx, 640, 480, "my mlx window");
+	win = mlx_new_window(mlx, 1024, 768, "mlx load img");
+	img = mlx_xpm_file_to_image(mlx, "./bg_4x.xpm", &img_width, &img_height);
+	//img = mlx_png_file_to_image(mlx, "./bg.png", &img_width, &img_height);
+	mlx_put_image_to_window(mlx, win, img, 0, 65);
 	mlx_loop(mlx);
 }
