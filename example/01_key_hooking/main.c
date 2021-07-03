@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 23:52:14 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/01 00:32:32 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/02 18:30:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #define X_EVENT_KEY_PRESS		2
 #define X_EVENT_KEY_release		3
 #define X_EVENT_KEY_EXIT		17 //exit key code
-
 
 /**
  * Mac OS Key code
