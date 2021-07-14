@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/10 23:10:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/14 23:15:43 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "../minilibx_mms_20210621/mlx.h"
+#include "../mlx/mlx.h"
+#include "../include/so_long.h"
 
 #define X_EVENT_KEY_PRESS		2
 #define X_EVENT_KEY_EXIT		17 //Exit program key code
@@ -39,8 +40,6 @@
 typedef struct	s_img
 {
 	void	*img;
-	void	*img1;
-	void	*img2;
 	int		*data;
 	int		h;
 	int		w;
@@ -50,13 +49,33 @@ typedef struct	s_img
 	int		endian;
 }				t_img;
 
+typedef struct	s_tile
+{
+	t_img	t0;
+	t_img	t1;
+	t_img	tl;
+}				t_tile;
+
+typedef struct	s_spr
+{
+	t_img	img0;
+	t_img	img1;
+	t_img	img2;
+	int		x;
+	int		y;
+	int		flag;
+}				t_spr;
+
+
+
 typedef struct	s_game
 {
 	void	*mlx;
 	void	*win;
 	t_img	img;
 	t_img	txt;
-	t_img	player;
+	t_tile	tile;
+	t_spr	player;
 	int		p_x;
 	int		p_y;
 	int		flag;
@@ -137,42 +156,104 @@ void	draw_rectangles(t_game *game)
 		while (j < COLS)
 		{
 			if (game->map[i][j] == 1)
-				mlx_put_image_to_window(game->mlx, game->win, game->img.img2, j * TILE_SIZE, i * TILE_SIZE);
+				mlx_put_image_to_window(game->mlx, game->win, game->tile.t1.img, j * TILE_SIZE, i * TILE_SIZE);
 				//draw_rectangle(game, j, i);
+			else if (game->map[i][j] == 2)
+				mlx_put_image_to_window(game->mlx, game->win, game->tile.tl.img, j * TILE_SIZE, i * TILE_SIZE);
 			else if (game->map[i][j] == 0)
-				mlx_put_image_to_window(game->mlx, game->win, game->img.img1, j * TILE_SIZE, i * TILE_SIZE);
+				mlx_put_image_to_window(game->mlx, game->win, game->tile.t0.img, j * TILE_SIZE, i * TILE_SIZE);
 			j++;
 		}
 		i++;
 	}
 }
-
-void	move_player(t_game *game, int x, int y)
+int	dir_to_coord(int dir, int *x, int *y)
 {
-	if (game->map[game->p_y + y][game->p_x + x] != 1)
+	if (dir == DIR_NORTH)
 	{
-		game->p_x += x;
-		game->p_y += y;
+		*x = 0;
+		*y = -1;
+	}
+	else if (dir == DIR_SOUTH)
+	{
+		*x = 0;
+		*y = 1;
+	}
+	else if (dir == DIR_WEST)
+	{
+		*x = -1;
+		*y = 0;
+	}
+	else if (dir == DIR_EAST)
+	{
+		*x = 1;
+		*y = 0;
+	}
+	else
+		return (FAIL);
+	return (SUCCESS);
+}
+
+int	is_collision(t_game *game, t_spr *sprite, int dir)
+{
+	int x;
+	int y;
+
+	dir_to_coord(dir, &x, &y);
+	if (game->map[sprite->y + y][sprite->x + x] == 1)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	_move_dir(t_game *game, t_spr *sprite, int dir)
+{
+	int x;
+	int y;
+
+	if (!is_collision(game, sprite, dir))
+	{
+		dir_to_coord(dir, &x, &y);
+		sprite->x += x;
+		sprite->y += y;
 	}
 	game->flag++;
 	if (game->flag > 2)
 		game->flag = 0;
-	printf("Player(%d,%d)\n", game->p_x, game->p_y);
-	return ;
+	return (1);
 }
 
-int		deal_key(int key_code, t_game *game)
+void	move_north(t_game *game, t_spr *sprite)
+{
+	_move_dir(game, sprite, DIR_NORTH);
+}
+
+void	move_south(t_game *game, t_spr *sprite)
+{
+	_move_dir(game, sprite, DIR_SOUTH);
+}
+
+void	move_west(t_game *game, t_spr *sprite)
+{
+	_move_dir(game, sprite, DIR_WEST);
+}
+
+void	move_east(t_game *game, t_spr *sprite)
+{
+	_move_dir(game, sprite, DIR_EAST);
+}
+
+int	deal_key(int key_code, t_game *game)
 {
 	if (key_code == KEY_ESC)
 		exit(0);
 	else if (key_code == KEY_W)
-		move_player(game, 0, -1);
+		move_north(game, &(game->player));
 	else if (key_code == KEY_A)
-		move_player(game, -1, 0);
+		move_west(game, &(game->player));
 	else if (key_code == KEY_S)
-		move_player(game, 0, 1);
+		move_south(game, &(game->player));
 	else if (key_code == KEY_D)
-		move_player(game, 1, 0);
+		move_east(game, &(game->player));
 	return (0);
 }
 
@@ -192,7 +273,7 @@ void	game_init(t_game *game)
 	{1, 0, 0, 0, 0, 1, 1, 1, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 2, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	memcpy(game->map, map, sizeof(int) * ROWS * COLS);
@@ -207,26 +288,34 @@ void	window_init(t_game *game)
 
 void	img_init(t_game *game)
 {
+	//tile_img_init();
+	//player_img_init();
 	game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->img.data = (int *)mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.size_l, &game->img.endian);
-	game->txt.img = mlx_png_file_to_image(game->mlx, "info_text.png", &(game->txt.w), &(game->txt.h));
-	game->img.img1 = mlx_png_file_to_image(game->mlx, "tile00.png", &(game->img.w), &(game->img.h));
-	game->img.img2 = mlx_png_file_to_image(game->mlx, "tile01.png", &(game->img.w), &(game->img.h));
-	game->player.img = mlx_png_file_to_image(game->mlx, "player.png", &(game->player.w), &(game->player.h));
-	game->player.img1 = mlx_png_file_to_image(game->mlx, "player01.png", &(game->player.w), &(game->player.h));
-	game->player.img2 = mlx_png_file_to_image(game->mlx, "player02.png", &(game->player.w), &(game->player.h));
+	game->txt.img = mlx_xpm_file_to_image(game->mlx, "info_text.xpm", &(game->txt.w), &(game->txt.h));
+	game->tile.t0.img = mlx_xpm_file_to_image(game->mlx, "tile00.xpm", &(game->img.w), &(game->img.h));
+	game->tile.t1.img = mlx_xpm_file_to_image(game->mlx, "tile01.xpm", &(game->img.w), &(game->img.h));
+	game->tile.tl.img = mlx_xpm_file_to_image(game->mlx, "tile_ladder.xpm", &(game->img.w), &(game->img.h));
+	game->player.img0.img = mlx_xpm_file_to_image(game->mlx, "player.xpm", &(game->img.w), &(game->img.h));
+	game->player.img1.img = mlx_xpm_file_to_image(game->mlx, "player01.xpm", &(game->img.w), &(game->img.h));
+	game->player.img2.img = mlx_xpm_file_to_image(game->mlx, "player02.xpm", &(game->img.w), &(game->img.h));
+}
+
+void	draw_player(t_game *game)
+{
+
 }
 
 int		main_loop(t_game *game)
 {
 	draw_rectangles(game);
-	draw_lines(game);
+	draw_player(game);
 	if (game->flag == 1)
-		mlx_put_image_to_window(game->mlx, game->win, game->player.img1, game->p_x * TILE_SIZE , game->p_y * TILE_SIZE);
+		mlx_put_image_to_window(game->mlx, game->win, game->player.img1.img, game->player.x * TILE_SIZE , game->player.y * TILE_SIZE);
 	else if (game->flag == 2)
-		mlx_put_image_to_window(game->mlx, game->win, game->player.img2, game->p_x * TILE_SIZE, game->p_y * TILE_SIZE);
+		mlx_put_image_to_window(game->mlx, game->win, game->player.img2.img, game->player.x * TILE_SIZE, game->player.y * TILE_SIZE);
 	else
-		mlx_put_image_to_window(game->mlx, game->win, game->player.img, game->p_x * TILE_SIZE, game->p_y * TILE_SIZE);
+		mlx_put_image_to_window(game->mlx, game->win, game->player.img0.img, game->player.x * TILE_SIZE, game->player.y * TILE_SIZE);
 	mlx_put_image_to_window(game->mlx, game->win, game->txt.img, 0, HEIGHT);
 	return (0);
 }
@@ -234,8 +323,8 @@ int		main_loop(t_game *game)
 int		main(void)
 {
 	t_game game;
-	game.p_x = 1;
-	game.p_y = 1;
+	game.player.x = 1;
+	game.player.y = 1;
 	game.flag = 0;
 
 	game_init(&game);
