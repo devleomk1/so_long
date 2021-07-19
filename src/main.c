@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/18 04:05:41 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/19 22:30:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ int	main_loop(t_game *game)
 {
 	draw_map(game);
 	draw_player(game);
-	//draw_collect(game);
+	draw_collect(game);
 	ft_put_img(game, game->txt.ptr, 0, HEIGHT);
 	draw_step_count(game);
 	return (0);

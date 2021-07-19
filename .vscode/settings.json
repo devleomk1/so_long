@@ -2,6 +2,9 @@
 	"files.associations": {
 		"ios": "c",
 		"istream": "c",
-		"locale": "c"
+		"locale": "c",
+		"stdlib.h": "c",
+		"so_long.h": "c",
+		"string.h": "c"
 	}
 }
