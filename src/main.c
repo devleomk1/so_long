@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/20 07:40:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/21 05:55:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,6 @@ void	map_read(t_game *game, char *line)
 	}
 }
 
-
-
 t_map	*map_load_fd(t_game *game, int fd)
 {
 	int		gnl;
@@ -208,44 +206,46 @@ void	file_read(t_game *game, char *filename)
 	//map = map_load_fd(game, fd);
 	int i = 0;
 	int j = 0;
-	game->maps.coord = (char **)malloc(sizeof(char *) * (11 * 10));
+	//아니 어떻게 몇줄인지 알지? 진짜 2번 읽어야 하나?
+	game->maps.coord = (char **)malloc(sizeof(char *) * (10));
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
 		printf("%s | len: %d\n", line, (int)ft_strlen(line));
 		printf("[%c]\n", line[0]);
+		game->maps.coord[i] = (char *)malloc(sizeof(char) * 10);
 		j = 0;
 		while (j < 10)
 		{
 			game->maps.coord[i][j] = line[j];
-			printf("HERE!\n");
+			printf("[%c]", game->maps.coord[i][j]);
 			j++;
 		}
 		printf("\n");
 		i++;
 		free(line);
 	}
-	map_read(game, line);
+	//map_read(game, line);
 	close(fd);
 	free(line);
 	i = 0;
-	j =0;
-	while (i < game->maps.rows)
-	{
-		printf("\n");
-		while (j < game->maps.cols)
-		{
-			printf("[%c]", game->maps.coord[i][j]);
-			if (game->maps.coord[i][j] == 'P')
-			{
-				game->player.x = i;
-				game->player.y = j;
-				printf("Read player coord OK\n");
-				printf("(%d, %d)\n", game->player.x, game->player.x);
-			}
-			j++;
-		}
-		i++;
-	}
+	j = 0;
+	//while (i < game->maps.rows)
+	//{
+	//	printf("\n");
+	//	while (j < game->maps.cols)
+	//	{
+	//		printf("[%c]", game->maps.coord[i][j]);
+	//		if (game->maps.coord[i][j] == 'P')
+	//		{
+	//			game->player.x = i;
+	//			game->player.y = j;
+	//			printf("Read player coord OK\n");
+	//			printf("(%d, %d)\n", game->player.x, game->player.x);
+	//		}
+	//		j++;
+	//	}
+	//	i++;
+	//}
 }
 
 int	main_loop(t_game *game)
@@ -281,7 +281,8 @@ int	main(int argc, char **argv)
 	init_window(&game);
 	init_img(&game);
 	init_player(&game);
-	file_read(&game, argv[1]);
+	init_dir(&game);
+	//file_read(&game, argv[1]);
 	//init_collec(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_game, &game);
