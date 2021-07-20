@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/19 22:45:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/20 07:40:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,16 +186,13 @@ t_map	*map_load_fd(t_game *game, int fd)
 	while (1)
 	{
 		gnl = get_next_line(fd, &line);
-
-
 	}
-	return ();
 }
 
 void	file_read(t_game *game, char *filename)
 {
 	int		fd;
-	t_map	*map;
+	//t_map	*map;
 	int		gnl;
 	char	*line;
 
@@ -207,22 +204,35 @@ void	file_read(t_game *game, char *filename)
 	//	close(fd);
 	//	exit_err("");
 	//}
-	init_map();
-	map = map_load_fd(game, fd);
+	//init_map();
+	//map = map_load_fd(game, fd);
+	int i = 0;
+	int j = 0;
+	game->maps.coord = (char **)malloc(sizeof(char *) * (11 * 10));
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		printf("%s\n", line);
+		printf("%s | len: %d\n", line, (int)ft_strlen(line));
+		printf("[%c]\n", line[0]);
+		j = 0;
+		while (j < 10)
+		{
+			game->maps.coord[i][j] = line[j];
+			printf("HERE!\n");
+			j++;
+		}
+		printf("\n");
+		i++;
 		free(line);
 	}
 	map_read(game, line);
 	close(fd);
 	free(line);
-	int i = 0;
-	int j = 0;
-	while (i < game->maps.height)
+	i = 0;
+	j =0;
+	while (i < game->maps.rows)
 	{
 		printf("\n");
-		while (j < game->maps.width)
+		while (j < game->maps.cols)
 		{
 			printf("[%c]", game->maps.coord[i][j]);
 			if (game->maps.coord[i][j] == 'P')
