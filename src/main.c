@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/21 05:55:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/21 22:57:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ t_map	*map_load_fd(t_game *game, int fd)
 void	file_read(t_game *game, char *filename)
 {
 	int		fd;
-	//t_map	*map;
+	char	*map_tmp;
 	int		gnl;
 	char	*line;
 
@@ -207,11 +207,15 @@ void	file_read(t_game *game, char *filename)
 	int i = 0;
 	int j = 0;
 	//아니 어떻게 몇줄인지 알지? 진짜 2번 읽어야 하나?
+	//읽은 문자열을 일렬로 이어붙이다가 해당 파일을 다 읽은 후에 스플릿해서 이차원 배열에 담는 식으로 진행
+	printf("File Read OK");
 	game->maps.coord = (char **)malloc(sizeof(char *) * (10));
+	map_tmp = NULL;
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
 		printf("%s | len: %d\n", line, (int)ft_strlen(line));
 		printf("[%c]\n", line[0]);
+		map_tmp = ft_strjoin(map_tmp, line);
 		game->maps.coord[i] = (char *)malloc(sizeof(char) * 10);
 		j = 0;
 		while (j < 10)
@@ -223,6 +227,11 @@ void	file_read(t_game *game, char *filename)
 		printf("\n");
 		i++;
 		free(line);
+	}
+	i = 0;
+	while(i < 100)
+	{
+		printf("[%c]", map_tmp[i++]);
 	}
 	//map_read(game, line);
 	close(fd);
@@ -277,12 +286,13 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	printf("\a\n");
 	init_game(&game);
 	init_window(&game);
 	init_img(&game);
 	init_player(&game);
 	init_dir(&game);
-	//file_read(&game, argv[1]);
+	file_read(&game, argv[1]);
 	//init_collec(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_game, &game);
