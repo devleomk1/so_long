@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/24 05:12:31 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/24 05:26:37 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	draw_map(t_game *game)
 	int		j;
 
 	i = 0;
-	while (i < ROWS)
+	while (i < game->maps.rows)
 	{
 		j = 0;
-		while (j < COLS)
+		while (j < game->maps.cols)
 		{
-			if (game->map[i][j] == 1)
+			if (game->maps.coord[i][j] == '1')
 				mlx_put_image_to_window(game->mlx, game->win,
 					game->tile.t1.ptr, j * TILE_SIZE, i * TILE_SIZE);
-			else if (game->map[i][j] == 2)
+			else if (game->maps.coord[i][j] == 'E')
 				mlx_put_image_to_window(game->mlx, game->win,
 					game->tile.tl.ptr, j * TILE_SIZE, i * TILE_SIZE);
 			else
@@ -64,28 +64,15 @@ int 	close_game(t_game *game)
 	exit(0);
 }
 
-void	init_game(t_game *game)
-{
-	int map[ROWS][COLS] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 1, 0, 0, 3, 1, 3, 1},
-	{1, 0, 0, 1, 1, 0, 0, 1, 0, 1},
-	{1, 1, 0, 0, 0, 0, 1, 1, 0, 1},
-	{1, 1, 0, 3, 0, 0, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 2, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-	memcpy(game->map, map, sizeof(int) * ROWS * COLS);
-	printf("init_game() clear\n");
-}
-
 void	init_window(t_game *game)
 {
+	int	width;
+	int	height;
+
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT + 64, "mlx 42");
+	width = game->maps.cols * TILE_SIZE;
+	height = game->maps.rows * TILE_SIZE;
+	game->win = mlx_new_window(game->mlx, width, height + 64, "mlx 42");
 	printf("init_window() clear\n");
 }
 
@@ -282,13 +269,12 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	printf("\a\n");
-	init_game(&game);
+	file_read(&game, argv[1]);
+	//init_game(&game);
 	init_window(&game);
 	init_img(&game);
 	init_player(&game);
 	init_dir(&game);
-	file_read(&game, argv[1]);
 	//init_collec(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_game, &game);

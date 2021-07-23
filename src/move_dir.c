@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:54:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/21 11:09:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/24 05:18:47 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_collision(t_game *game, t_spr *sprite, int dir)
 
 	x = game->dir2coord[dir].x;
 	y = game->dir2coord[dir].y;
-	if (game->map[sprite->y + y][sprite->x + x] == 1)
+	if (game->maps.coord[sprite->y + y][sprite->x + x] == '1')
 		return (TRUE);
 	return (FALSE);
 }
