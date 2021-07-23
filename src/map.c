@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/24 01:09:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/24 04:41:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ int	check_map_compo(char c)
 
 int	check_map_rectangle(void)
 {
-
+	return (0);
 }
 
 int	check_map(char **argv)
 {
-
-}
-
-int	main(int argc, char **argv)
-{
-	if (check_ext(argv[1], ".ber"))
-	{
-		printf("Ext Check" GREEN" OK\n"RESET);
-	}
 	return (0);
 }
+
+//int	main(int argc, char **argv)
+//{
+//	if (check_ext(argv[1], ".ber"))
+//	{
+//		printf("Ext Check" GREEN" OK\n"RESET);
+//	}
+//	return (0);
+//}
