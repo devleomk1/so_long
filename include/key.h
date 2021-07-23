@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 02:27:06 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/18 02:27:51 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/19 22:50:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # define X_EVENT_KEY_EXIT		17
 
 # define KEY_ESC			53
-# define KEY_W			13
-# define KEY_A			0
-# define KEY_S			1
-# define KEY_D			2
+# define KEY_W				13
+# define KEY_A				0
+# define KEY_S				1
+# define KEY_D				2
 
 #endif

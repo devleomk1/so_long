@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/18 03:49:07 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/24 01:00:32 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define DIR_SOUTH	2
 # define DIR_WEST	3
 # define DIR_EAST	4
+
+# define MAP_EXT	".ber"
 
 #define WIDTH COLS * TILE_SIZE
 #define HEIGHT ROWS * TILE_SIZE
@@ -117,11 +119,14 @@ void	*ft_xpm_to_img(t_game *game, char *str);
 void	ft_put_img64(t_game *game, void *img_ptr, int x, int y);
 void	ft_put_img(t_game *game, void *img_ptr, int x, int y);
 
+void	init_dir(t_game *game);
 void	dir_to_coord(int dir, int *x, int *y);
 int		is_collision(t_game *game, t_spr *sprite, int dir);
 void	move_north(t_game *game, t_spr *sprite);
 void	move_south(t_game *game, t_spr *sprite);
 void	move_west(t_game *game, t_spr *sprite);
 void	move_east(t_game *game, t_spr *sprite);
+
+int		check_ext(char *str, char *ext);
 
 #endif

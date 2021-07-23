@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/21 22:57:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/24 01:52:39 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,79 +143,69 @@ void	draw_collect(t_game *game)
  * row 0	[  ]	[  ]
  * row 1	[  ]	[  ]
  */
-void	get_map_width(t_game *game, char *line)
+
+void	count_max_rows_cols(t_game *game, int fd)
 {
-	game->maps.cols = 10;
+	int		read_size;
+	int		tmp_cols;
+	char	c;
+
+	game->maps.rows = 1;
+	game->maps.cols = 1;
+	tmp_cols = 0;
+	while((read_size = read(fd, &c, 1)) > 0)
+	{
+		if (game->maps.cols < tmp_cols)
+			game->maps.cols = tmp_cols;
+		if (c == '\n')
+		{
+			game->maps.rows++;
+			tmp_cols = 0;
+		}
+		tmp_cols++;
+	}
 }
 
-void	get_map_height(t_game *game, char *line)
-{
-	game->maps.rows = 10;
-}
-
-void	map_read(t_game *game, char *line)
+void	map_malloc(t_game *game, int fd)
 {
 	int	i;
-	int	j;
-	int	k;
 
-	get_map_width(game, line);
-	get_map_height(game, line);
-	game->maps.coord = (char **)malloc(sizeof(char *) * (game->maps.rows * game->maps.cols));
+	count_max_rows_cols(game, fd);
+	game->maps.coord = (char **)malloc(sizeof(char *) * (game->maps.rows));
 	i = 0;
-	k = 0;
-	while (i <= game->maps.rows)
-	{
-		while (j <= game->maps.cols)
-		{
-			printf("%c\n", line[k]);
-			game->maps.coord[i][j] = line[k];
-			k++;
-			j++;
-		}
-		i++;
-	}
+	while (i < game->maps.rows)
+		game->maps.coord[i++] = (char *)malloc(sizeof(char) * (game->maps.cols));
+	ft_memset(game->maps.coord, ' ', (game->maps.cols * game->maps.rows));
 }
 
-t_map	*map_load_fd(t_game *game, int fd)
+void	map_read()
 {
-	int		gnl;
-	char	*line;
-	while (1)
-	{
-		gnl = get_next_line(fd, &line);
-	}
+
 }
 
 void	file_read(t_game *game, char *filename)
 {
 	int		fd;
-	char	*map_tmp;
 	int		gnl;
+	char	*map_tmp;
 	char	*line;
 
+	check_ext(filename, MAP_EXT);
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
+	if (fd <= 0)
 		exit_err("File open fail\n");
-	//if (check_extension())
-	//{
-	//	close(fd);
-	//	exit_err("");
-	//}
-	//init_map();
-	//map = map_load_fd(game, fd);
+	map_malloc(game, fd);
+	close(fd);
+
 	int i = 0;
 	int j = 0;
 	//아니 어떻게 몇줄인지 알지? 진짜 2번 읽어야 하나?
 	//읽은 문자열을 일렬로 이어붙이다가 해당 파일을 다 읽은 후에 스플릿해서 이차원 배열에 담는 식으로 진행
-	printf("File Read OK");
+
 	game->maps.coord = (char **)malloc(sizeof(char *) * (10));
 	map_tmp = NULL;
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		printf("%s | len: %d\n", line, (int)ft_strlen(line));
-		printf("[%c]\n", line[0]);
-		map_tmp = ft_strjoin(map_tmp, line);
 		game->maps.coord[i] = (char *)malloc(sizeof(char) * 10);
 		j = 0;
 		while (j < 10)
@@ -227,11 +217,6 @@ void	file_read(t_game *game, char *filename)
 		printf("\n");
 		i++;
 		free(line);
-	}
-	i = 0;
-	while(i < 100)
-	{
-		printf("[%c]", map_tmp[i++]);
 	}
 	//map_read(game, line);
 	close(fd);
