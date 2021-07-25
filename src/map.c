@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/26 00:18:10 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/26 05:20:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,18 @@ int	check_map_compo(char c)
 	return (FALSE);
 }
 
-int	check_map_rectangle(void)
+int	is_map_rectangle(t_game *game, int len2)
 {
-	return (0);
+	int len1;
+
+	len1 = game->maps.cols;
+	if (len1 != len2)
+	{
+		printf("len1 : %d\n", game->maps.cols);
+		printf("len2 : %d\n", len2);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 /**
@@ -63,7 +72,6 @@ int	check_map_rectangle(void)
  * row 0	[  ]	[  ]
  * row 1	[  ]	[  ]
  */
-
 void	count_max_rows_cols(t_game *game, int fd)
 {
 	int		read_size;
@@ -126,6 +134,8 @@ void	map_load(t_game *game, char *filename)
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
+		if (is_map_rectangle(game, ft_strlen(line)) == FALSE)
+			exit_err("Map file is not rectangular.\n");
 		j = 0;
 		while (j < game->maps.cols)
 		{
@@ -148,9 +158,9 @@ void	get_compo_coord(t_game *game)
 	int j;
 
 	i = 0;
-	j = 0;
 	while (i < game->maps.rows)
 	{
+		j = 0;
 		while (j < game->maps.cols)
 		{
 			if (game->maps.coord[i][j] == 'P')
@@ -158,10 +168,12 @@ void	get_compo_coord(t_game *game)
 				game->player.x = i;
 				game->player.y = j;
 			}
-			//if (game->maps.coord[i][j] == 'C')
+			else if (game->maps.coord[i][j] == 'C')
+			{
+
+			}
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 }
@@ -176,14 +188,5 @@ void	file_read(t_game *game, char *filename)
 	map_malloc(game, fd);
 	close(fd);
 	map_load(game, filename);
-
+	get_compo_coord(game);
 }
-
-//int	main(int argc, char **argv)
-//{
-//	if (check_ext(argv[1], ".ber"))
-//	{
-//		printf("Ext Check" GREEN" OK\n"RESET);
-//	}
-//	return (0);
-//}
