@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:54:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/24 05:18:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/26 05:56:54 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int	_move_dir(t_game *game, t_spr *sprite, int dir)
 		sprite->step++;
 		printf("step : %d\n", sprite->step);
 	}
-	game->flag++;
-	if (game->flag > 2)
-		game->flag = 0;
+	//game->flag++;
+	//if (game->flag > 2)
+	//	game->flag = 0;
 	return (1);
 }
 

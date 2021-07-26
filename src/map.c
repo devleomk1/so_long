@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/26 05:20:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/26 14:40:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_ext(char *str, char *ext)
 
 	i = 0;
 	if (ext[0] != '.')
-		exit_err("Invalid function parameter. ext[0] must be dot charter\n");
+		exit_err("Invalid function parameter. ext[0] must be 'dot' charter\n");
 	while (str[i] != '\0' && str[i] != '.')
 		i++;
 	if (!str[i])
@@ -48,21 +48,37 @@ int	check_ext(char *str, char *ext)
 int	check_map_compo(char c)
 {
 	if (c == '0' || c == '1' || c == 'C'
-		|| c == 'E' || c == 'P' || c == ' ' /*|| c == '\n'*/)
+		|| c == 'E' || c == 'P' || c == ' ' || c == '\n')
 		return (TRUE);
 	return (FALSE);
 }
 
 int	is_map_rectangle(t_game *game, int len2)
 {
-	int len1;
+	int	len1;
 
 	len1 = game->maps.cols;
 	if (len1 != len2)
-	{
-		printf("len1 : %d\n", game->maps.cols);
-		printf("len2 : %d\n", len2);
 		return (FALSE);
+	return (TRUE);
+}
+
+int	is_map_walled(t_map map)
+{
+	int	i;
+	i = 0;
+	while (i < map.cols)
+	{
+		if (map.coord[i][0] != '1' || map.coord[i][map.rows] != '1')
+			return (FALSE);
+		i++;
+	}
+	i = 0;
+	while (i < map.rows)
+	{
+		if (map.coord[0][i] != '1' || map.coord[map.cols][i] != '1')
+			return (FALSE);
+		i++;
 	}
 	return (TRUE);
 }
@@ -80,11 +96,9 @@ void	count_max_rows_cols(t_game *game, int fd)
 
 	game->maps.rows = 0;
 	game->maps.cols = 0;
-	read_size = 1;
 	tmp_cols = 0;
-	while (read_size > 0)
+	while (read(fd, &c, 1) > 0)
 	{
-		read_size = read(fd, &c, 1);
 		if (game->maps.cols < tmp_cols)
 			game->maps.cols = tmp_cols;
 		if (c == '\n')
@@ -115,7 +129,7 @@ void	map_malloc(t_game *game, int fd)
 
 int	open_file(char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd <= 0)
@@ -154,8 +168,8 @@ void	map_load(t_game *game, char *filename)
 
 void	get_compo_coord(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < game->maps.rows)
@@ -170,7 +184,6 @@ void	get_compo_coord(t_game *game)
 			}
 			else if (game->maps.coord[i][j] == 'C')
 			{
-
 			}
 			j++;
 		}
@@ -181,7 +194,6 @@ void	get_compo_coord(t_game *game)
 void	file_read(t_game *game, char *filename)
 {
 	int		fd;
-	int		gnl;
 
 	check_ext(filename, MAP_EXT);
 	fd = open_file(filename);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/25 23:48:26 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/26 07:56:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	draw_map(t_game *game)
 			else
 				mlx_put_image_to_window(game->mlx, game->win,
 					game->tile.t0.ptr, j * TILE_SIZE, i * TILE_SIZE);
-			//if (game->map[i][j] == 3)
-			//	//game->collect.cnt++;
 			j++;
 		}
 		i++;
@@ -105,14 +103,14 @@ void	init_img(t_game *game)
 void	draw_player(t_game *game)
 {
 	if (game->flag == 1)
-		ft_put_img64(game, game->player.img1.ptr,
-			game->player.x, game->player.y);
+		ft_put_img(game, game->player.img1.ptr,
+			game->player.x * TILE_SIZE, game->player.y * TILE_SIZE);
 	else if (game->flag == 2)
-		ft_put_img64(game, game->player.img2.ptr,
-			game->player.x, game->player.y);
+		ft_put_img(game, game->player.img2.ptr,
+			game->player.x * TILE_SIZE, game->player.y * TILE_SIZE);
 	else
-		ft_put_img64(game, game->player.img0.ptr,
-			game->player.x, game->player.y);
+		ft_put_img(game, game->player.img0.ptr,
+			game->player.x * TILE_SIZE, game->player.y * TILE_SIZE);
 }
 
 void	draw_step_count(t_game *game)
@@ -132,23 +130,30 @@ void	draw_collect(t_game *game)
 
 int	main_loop(t_game *game)
 {
+	/************* FPS Frame *************/
 	static int fps = 0;
 	time_t end;
 
 	fps++;
 	time(&end);
+	if (game->flag > 2)
+		game->flag = 0;
+	if (!(fps % 30))
+	{
+		game->flag++;
+	}
 	if ((float)(end - start) >= 1.0)
 	{
 		printf("fps : %d\n", fps);
 		fps = 0;
 		time(&start);
 	}
+	/************* ********* *************/
 	draw_map(game);
 	draw_player(game);
 	//draw_collect(game);
 	ft_put_img(game, game->txt.ptr, 0, game->maps.rows * TILE_SIZE);
 	draw_step_count(game);
-
 	return (0);
 }
 
@@ -165,17 +170,22 @@ void	init_collec(t_game *game)
 	//init_collec_lst();
 }
 
+void	init_game(t_game *game)
+{
+	init_window(game);
+	init_img(game);
+	init_player(game);
+	init_dir(game);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
 	if (argc < 2)
-		exit_err("Wrong argument");
+		exit_err("Usage: ./so_long [MAP_FILE.ber]\n");
 	file_read(&game, argv[1]);
-	init_window(&game);
-	init_img(&game);
-	init_player(&game);
-	init_dir(&game);
+	init_game(&game);
 	//init_collec(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &deal_key, &game);
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_game, &game);
