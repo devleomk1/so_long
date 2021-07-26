@@ -6,32 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:54:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/26 05:56:54 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/27 04:30:17 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
-
-void	init_dir(t_game *game)
-{
-	game->dir2coord[DIR_NONE] = (t_coord){0, 0};
-	game->dir2coord[DIR_NORTH] = (t_coord){0, -1};
-	game->dir2coord[DIR_SOUTH] = (t_coord){0, 1};
-	game->dir2coord[DIR_WEST] = (t_coord){-1, 0};
-	game->dir2coord[DIR_EAST] = (t_coord){1, 0};
-}
-
-int	is_collision(t_game *game, t_spr *sprite, int dir)
-{
-	int	x;
-	int	y;
-
-	x = game->dir2coord[dir].x;
-	y = game->dir2coord[dir].y;
-	if (game->maps.coord[sprite->y + y][sprite->x + x] == '1')
-		return (TRUE);
-	return (FALSE);
-}
+#include "so_long.h"
 
 static int	_move_dir(t_game *game, t_spr *sprite, int dir)
 {

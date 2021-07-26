@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/26 07:56:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/27 04:34:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <math.h>
 #include <string.h>
 #include <time.h>
-#include "../include/so_long.h"
+#include "so_long.h"
 
 time_t start;
 
@@ -43,21 +43,6 @@ void	draw_map(t_game *game)
 		}
 		i++;
 	}
-}
-
-int	deal_key(int key_code, t_game *game)
-{
-	if (key_code == KEY_ESC)
-		exit(0);
-	else if (key_code == KEY_W)
-		move_north(game, &(game->player));
-	else if (key_code == KEY_A)
-		move_west(game, &(game->player));
-	else if (key_code == KEY_S)
-		move_south(game, &(game->player));
-	else if (key_code == KEY_D)
-		move_east(game, &(game->player));
-	return (0);
 }
 
 int 	close_game(t_game *game)
@@ -97,7 +82,6 @@ void	init_img(t_game *game)
 	tile_img_init(game);
 	player_img_init(game);
 	game->txt.ptr = ft_xpm_to_img(game, "info_text.xpm");
-	printf("init_img() clear\n");
 }
 
 void	draw_player(t_game *game)
@@ -162,7 +146,6 @@ void	init_player(t_game *game)
 	game->player.step = 0;
 	game->player.flag = FALSE;
 	game->flag = 0;
-	printf("init_player() clear\n");
 }
 
 void	init_collec(t_game *game)
@@ -182,7 +165,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc < 2)
+	if (argc != 2)
 		exit_err("Usage: ./so_long [MAP_FILE.ber]\n");
 	file_read(&game, argv[1]);
 	init_game(&game);
