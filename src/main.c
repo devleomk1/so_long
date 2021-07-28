@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/27 23:10:28 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/28 16:33:07 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,19 @@ void	draw_map(t_game *game)
 		while (j < game->maps.cols)
 		{
 			if (game->maps.coord[i][j] == '1')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->tile.t1.ptr, j * TILE_SIZE, i * TILE_SIZE);
+				ft_put_img64(game, game->tile.t1.ptr, j, i);
 			else if (game->maps.coord[i][j] == 'E')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->tile.tl.ptr, j * TILE_SIZE, i * TILE_SIZE);
+			{
+				if (game->flag.collect_all == TRUE)
+					ft_put_img64(game, game->tile.tl.ptr, j, i);
+				else
+				{
+					ft_put_img64(game, game->tile.t0.ptr, j, i);
+					ft_put_img64(game, game->tile.ts.ptr, j, i);
+				}
+			}
 			else
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->tile.t0.ptr, j * TILE_SIZE, i * TILE_SIZE);
+				ft_put_img64(game, game->tile.t0.ptr, j, i);
 			j++;
 		}
 		i++;
@@ -60,20 +65,28 @@ void	tile_img_init(t_game *game)
 {
 	game->tile.t0.ptr = ft_xpm_to_img(game, "tile00.xpm");
 	game->tile.t1.ptr = ft_xpm_to_img(game, "tile01.xpm");
-	game->tile.tl.ptr = ft_xpm_to_img(game, "tile_ladder.xpm");
+	game->tile.tl.ptr = ft_xpm_to_img(game, "ladder.xpm");
 	game->tile.tb.ptr = ft_xpm_to_img(game, "num_box_16.xpm");
+	game->tile.ts.ptr = ft_xpm_to_img(game, "stone.xpm");
 }
 
 void	player_img_init(t_game *game)
 {
-	game->player.spr.img0.ptr = ft_xpm_to_img(game, "player.xpm");
+	game->player.spr.img0.ptr = ft_xpm_to_img(game, "player_fr.xpm");
 	game->player.spr.img1.ptr = ft_xpm_to_img(game, "player01.xpm");
 	game->player.spr.img2.ptr = ft_xpm_to_img(game, "player02.xpm");
 }
 
 void	collec_img_init(t_game *game)
 {
-	game->collec.ball.ptr = ft_xpm_to_img(game, "pokeball.xpm");
+	game->collec.ball.ptr = ft_xpm_to_img(game, "ball.xpm");
+}
+
+void	init_img_txt(t_game *game)
+{
+	game->txt.ptr = ft_xpm_to_img(game, "info_text.xpm");
+	game->ending.ptr = ft_xpm_to_img(game, "ending.xpm");
+
 }
 
 void	init_img(t_game *game)
@@ -81,27 +94,51 @@ void	init_img(t_game *game)
 	tile_img_init(game);
 	player_img_init(game);
 	collec_img_init(game);
-	game->txt.ptr = ft_xpm_to_img(game, "info_text.xpm");
+	init_img_txt(game);
 }
 
 void	draw_player(t_game *game)
 {
-	if (game->flag == 1)
-		ft_put_img64(game, game->player.spr.img1.ptr,
-			game->player.spr.x, game->player.spr.y);
-	else if (game->flag == 2)
-		ft_put_img64(game, game->player.spr.img2.ptr,
-			game->player.spr.x, game->player.spr.y);
+	t_spr	*player;
+
+	player = &(game->player.spr);
+	player->x2 = player->x;
+	if (game->player.spr.frame == 1)
+	{
+		ft_put_img(game, player->img1.ptr, (player->x * TILE_SIZE) + player->i, (player->y - 1) * TILE_SIZE);
+		player->i -= 4;
+		printf("x :%d\n", player->x * TILE_SIZE);
+		printf("x2 :%d\n", (player->x * TILE_SIZE) + player->i);
+		if ( ((player->x * TILE_SIZE) + player->i) == player->x2 * TILE_SIZE )
+		{
+			printf("HERE\n");
+			player->i = 64;
+			game->player.spr.frame = 0;
+		}
+	}
+	else if (game->player.spr.frame == 2)
+		ft_put_img64(game, player->img2.ptr, player->x, player->y - 1);
 	else
-		ft_put_img64(game, game->player.spr.img0.ptr,
-			game->player.spr.x, game->player.spr.y);
+		ft_put_img64(game, player->img0.ptr, player->x, player->y - 1);
+}
+
+void	print_step_count(t_game *game)
+{
+	if (game->flag.player_walk == TRUE)
+	{
+		ft_putstr_fd("Step : ", 1);
+		ft_putnbr_fd(game->player.spr.step, 1);
+		ft_putstr_fd("\n", 1);
+		game->flag.player_walk = FALSE;
+	}
 }
 
 void	draw_step_count(t_game *game)
 {
 	char *str;
 
-	str = ft_itoa(game->player.step);
+	str = ft_itoa(game->player.spr.step);
+	print_step_count(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->tile.tb.ptr, 0, 0);
 	mlx_string_put(game->mlx, game->win, 24, 36, 0x000000, str);
 }
@@ -130,69 +167,84 @@ void	draw_collect(t_game *game)
 	}
 }
 
-void	ending(t_game *game)
+void	event_exit(t_game *game)
 {
 	int	x;
 	int	y;
 
 	x = game->player.spr.x;
 	y = game->player.spr.y;
-	if (game->maps.coord[y][x] == 'E')
+	if (game->maps.coord[y][x] == 'E' && game->flag.collect_all == TRUE)
 	{
-		printf("cnt.c : %d\n", game->maps.cnt.c);
-		printf("item : %d\n", game->player.item);
-		if (game->maps.cnt.c == game->player.item)
-		{
-			printf("THANK YOU FOR PLAYING\n");
-			close_game(game);
-		}
+		ft_putstr_fd("=====================\n", 1);
+		ft_putstr_fd("THANK YOU FOR PLAYING\n", 1);
+		ft_putstr_fd(" Press [ESC] to exit\n", 1);
+		ft_putstr_fd("=====================\n", 1);
+		ft_put_img64(game, game->ending.ptr, game->maps.cols / 2 - 1, game->maps.rows/2);
+		game->flag.game_end = TRUE;
 	}
+}
+
+void	flag_checker(t_game *game)
+{
+	if (game->maps.cnt.c == game->player.item)
+		game->flag.collect_all = TRUE;
 }
 
 int	main_loop(t_game *game)
 {
-	/************* FPS Frame *************/
-	static int fps = 0;
-	time_t end;
+	///************* FPS Frame *************/
+	//static int fps = 0;
+	//time_t end;
 
-	fps++;
-	time(&end);
-	if (game->flag > 2)
-		game->flag = 0;
-	if (!(fps % 30))
+	//fps++;
+	//time(&end);
+	//if ((float)(end - start) >= 1.0)
+	//{
+	//	printf("fps : %d\n", fps);
+	//	fps = 0;
+	//	time(&start);
+	//}
+	///************* ********* *************/
+	if (game->flag.game_end == FALSE)
 	{
-		//game->flag++;
+		draw_map(game);
+		draw_collect(game);
+		draw_player(game);
+		ft_put_img(game, game->txt.ptr, 0, game->maps.rows * TILE_SIZE);
+		draw_step_count(game);
+		flag_checker(game);
+		event_exit(game);
 	}
-	if ((float)(end - start) >= 1.0)
-	{
-		printf("fps : %d\n", fps);
-		fps = 0;
-		time(&start);
-	}
-	/************* ********* *************/
-	draw_map(game);
-	draw_collect(game);
-	draw_player(game);
-	ft_put_img(game, game->txt.ptr, 0, game->maps.rows * TILE_SIZE);
-	draw_step_count(game);
-	ending(game);
 	return (0);
 }
 
 void	init_player(t_game *game)
 {
+	game->player.life = LIFE_MAX;
 	game->player.step = 0;
 	game->player.item = 0;
-	game->player.flag = FALSE;
-	game->flag = 0;
+	game->player.spr.step = 0;
+	game->player.spr.frame = 0;
+	game->player.spr.frame_max = 2;
+	game->player.spr.i = 64;
+
+}
+
+void	init_flag(t_game *game)
+{
+	game->flag.collect_all = FALSE;
+	game->flag.player_walk = FALSE;
+	game->flag.game_end = FALSE;
 }
 
 void	init_game(t_game *game)
 {
 	init_window(game);
+	init_dir(game);
 	init_img(game);
 	init_player(game);
-	init_dir(game);
+	init_flag(game);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:54:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/27 23:11:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/28 04:09:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ static int	_move_dir(t_game *game, t_spr *sprite, int dir)
 	{
 		sprite->x += game->dir2coord[dir].x;
 		sprite->y += game->dir2coord[dir].y;
-		game->player.step++;
-		printf("step : %d\n", game->player.step);
+		sprite->step++;
+		if (sprite == &(game->player.spr))
+			game->flag.player_walk = TRUE;
 	}
-	game->flag++;
-	if (game->flag > 2)
-		game->flag = 0;
+	sprite->frame++;
+	if (sprite->frame > sprite->frame_max)
+		sprite->frame = 0;
 	return (1);
 }
 

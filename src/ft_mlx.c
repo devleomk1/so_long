@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:47:08 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/27 05:01:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/28 05:00:28 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 void	*ft_xpm_to_img(t_game *game, char *str)
 {
