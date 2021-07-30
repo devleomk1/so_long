@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/28 16:01:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/31 07:03:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@
 
 # define TILE_SIZE 64
 
-# define TRUE		1
-# define FALSE		0
-# define SUCCESS	1
-# define FAIL		0
+# define TRUE			1
+# define FALSE			0
+# define SUCCESS		1
+# define FAIL			0
 
-# define DIR_NONE	0
-# define DIR_NORTH	1
-# define DIR_SOUTH	2
-# define DIR_WEST	3
-# define DIR_EAST	4
+# define DIR_NONE		0
+# define DIR_NORTH		1
+# define DIR_SOUTH		2
+# define DIR_WEST		3
+# define DIR_EAST		4
 
-# define LIFE_MAX	1
+# define LIFE_MAX		1
+# define PLAYER_SPEED	4
 
 # define WIDTH COLS * TILE_SIZE
 # define HEIGHT ROWS * TILE_SIZE
@@ -82,9 +83,10 @@ typedef struct s_spr
 	int		step;
 	int		x;
 	int		y;
-	int		x2;
-	int		y2;
+	int		x0;
+	int		y0;
 	int		i;
+	int		dir;
 }			t_spr;
 
 typedef struct s_clst
@@ -113,6 +115,7 @@ typedef struct	s_map
 	int		rows;
 	int		cols;
 	char	**coord;
+	char	*file;
 	t_compo	cnt;
 }			t_map;
 
@@ -127,7 +130,9 @@ typedef struct	s_player
 typedef struct	s_flags
 {
 	int		collect_all;
+	int		held_keys;
 	int		player_walk;
+	int		step_cnt;
 	int		game_end;
 }			t_flags;
 
@@ -153,6 +158,10 @@ void	ft_put_img64(t_game *game, void *img_ptr, int x, int y);
 void	ft_put_img(t_game *game, void *img_ptr, int x, int y);
 
 void	init_collec(t_game *game);
+void	init_player(t_game *game);
+void	init_flag(t_game *game);
+void	init_game(t_game *game);
+void	reset_game(t_game *game);
 
 void	init_dir(t_game *game);
 void	dir_to_coord(int dir, int *x, int *y);
@@ -179,5 +188,7 @@ t_clst	*clst_new(t_game *game, int x, int y);
 t_clst	*clst_last(t_clst *lst);
 void	clst_add_back(t_clst **lst, t_clst *new);
 void	clst_clear(t_clst *head);
+
+void	draw_map(t_game *game);
 
 #endif

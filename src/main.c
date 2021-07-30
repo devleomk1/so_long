@@ -6,44 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/28 16:33:07 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/07/31 07:06:36 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-time_t start;
-
-void	draw_map(t_game *game)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < game->maps.rows)
-	{
-		j = 0;
-		while (j < game->maps.cols)
-		{
-			if (game->maps.coord[i][j] == '1')
-				ft_put_img64(game, game->tile.t1.ptr, j, i);
-			else if (game->maps.coord[i][j] == 'E')
-			{
-				if (game->flag.collect_all == TRUE)
-					ft_put_img64(game, game->tile.tl.ptr, j, i);
-				else
-				{
-					ft_put_img64(game, game->tile.t0.ptr, j, i);
-					ft_put_img64(game, game->tile.ts.ptr, j, i);
-				}
-			}
-			else
-				ft_put_img64(game, game->tile.t0.ptr, j, i);
-			j++;
-		}
-		i++;
-	}
-}
 
 int 	close_game(t_game *game)
 {
@@ -86,7 +53,6 @@ void	init_img_txt(t_game *game)
 {
 	game->txt.ptr = ft_xpm_to_img(game, "info_text.xpm");
 	game->ending.ptr = ft_xpm_to_img(game, "ending.xpm");
-
 }
 
 void	init_img(t_game *game)
@@ -97,49 +63,69 @@ void	init_img(t_game *game)
 	init_img_txt(game);
 }
 
-void	draw_player(t_game *game)
+t_img	*get_player_sprimg(t_game *game)
 {
-	t_spr	*player;
+	t_img	*spr;
 
-	player = &(game->player.spr);
-	player->x2 = player->x;
 	if (game->player.spr.frame == 1)
-	{
-		ft_put_img(game, player->img1.ptr, (player->x * TILE_SIZE) + player->i, (player->y - 1) * TILE_SIZE);
-		player->i -= 4;
-		printf("x :%d\n", player->x * TILE_SIZE);
-		printf("x2 :%d\n", (player->x * TILE_SIZE) + player->i);
-		if ( ((player->x * TILE_SIZE) + player->i) == player->x2 * TILE_SIZE )
-		{
-			printf("HERE\n");
-			player->i = 64;
-			game->player.spr.frame = 0;
-		}
-	}
+		spr = &(game->player.spr.img1);
 	else if (game->player.spr.frame == 2)
-		ft_put_img64(game, player->img2.ptr, player->x, player->y - 1);
+		spr = &(game->player.spr.img2);
 	else
-		ft_put_img64(game, player->img0.ptr, player->x, player->y - 1);
+		spr = &(game->player.spr.img0);
+	return (spr);
 }
 
-void	print_step_count(t_game *game)
+static void	draw_player_walk(t_game *game, t_spr *player, t_img *sprite, int dir)
 {
-	if (game->flag.player_walk == TRUE)
+	int	x;
+	int	y;
+
+	game->flag.held_keys = TRUE;
+	x = (player->x0 * TILE_SIZE) + (game->dir2coord[dir].x * player->i);
+	y = ((player->y0 - 1) * TILE_SIZE) + (game->dir2coord[dir].y * player->i);
+	ft_put_img(game, sprite->ptr, x, y);
+	player->i += PLAYER_SPEED;
+	if ((x == player->x * TILE_SIZE) && (y == (player->y - 1) * TILE_SIZE))
 	{
-		ft_putstr_fd("Step : ", 1);
-		ft_putnbr_fd(game->player.spr.step, 1);
-		ft_putstr_fd("\n", 1);
+		player->i = 0;
+		game->player.spr.frame = 0;
+		game->flag.held_keys = FALSE;
 		game->flag.player_walk = FALSE;
 	}
 }
 
+void	draw_player(t_game *game)
+{
+	int		dir;
+	t_spr	*player;
+	t_img	*sprite;
+
+	dir = game->player.spr.dir;
+	player = &(game->player.spr);
+	sprite = get_player_sprimg(game);
+	if (game->flag.player_walk)
+		draw_player_walk(game, player, sprite, dir);
+	else
+		ft_put_img64(game, sprite->ptr, player->x, player->y - 1);
+}
+
+void	print_step_count(t_game *game)
+{
+	ft_putstr_fd("Step : ", 1);
+	ft_putnbr_fd(game->player.spr.step, 1);
+	ft_putstr_fd("\n", 1);
+	game->flag.step_cnt = FALSE;
+}
+
 void	draw_step_count(t_game *game)
 {
-	char *str;
+	char	*str;
 
 	str = ft_itoa(game->player.spr.step);
-	print_step_count(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->tile.tb.ptr, 0, 0);
+	if (game->flag.step_cnt)
+		print_step_count(game);
+	ft_put_img64(game, game->tile.tb.ptr, 0, 0);
 	mlx_string_put(game->mlx, game->win, 24, 36, 0x000000, str);
 }
 
@@ -154,7 +140,7 @@ void	draw_collect(t_game *game)
 	lst = game->collec.clst;
 	while (lst)
 	{
-		if (lst->istouch == FALSE)
+		if (!lst->istouch)
 		{
 			if (lst->coord.x == x && lst->coord.y == y)
 			{
@@ -174,13 +160,15 @@ void	event_exit(t_game *game)
 
 	x = game->player.spr.x;
 	y = game->player.spr.y;
-	if (game->maps.coord[y][x] == 'E' && game->flag.collect_all == TRUE)
+	if (game->maps.coord[y][x] == 'E'
+		&& game->flag.collect_all
+		&& !game->flag.player_walk)
 	{
 		ft_putstr_fd("=====================\n", 1);
 		ft_putstr_fd("THANK YOU FOR PLAYING\n", 1);
 		ft_putstr_fd(" Press [ESC] to exit\n", 1);
 		ft_putstr_fd("=====================\n", 1);
-		ft_put_img64(game, game->ending.ptr, game->maps.cols / 2 - 1, game->maps.rows/2);
+		ft_put_img64(game, game->ending.ptr, game->maps.cols / 2 - 1, game->maps.rows / 2);
 		game->flag.game_end = TRUE;
 	}
 }
@@ -193,20 +181,7 @@ void	flag_checker(t_game *game)
 
 int	main_loop(t_game *game)
 {
-	///************* FPS Frame *************/
-	//static int fps = 0;
-	//time_t end;
-
-	//fps++;
-	//time(&end);
-	//if ((float)(end - start) >= 1.0)
-	//{
-	//	printf("fps : %d\n", fps);
-	//	fps = 0;
-	//	time(&start);
-	//}
-	///************* ********* *************/
-	if (game->flag.game_end == FALSE)
+	if (!game->flag.game_end)
 	{
 		draw_map(game);
 		draw_collect(game);
@@ -227,14 +202,15 @@ void	init_player(t_game *game)
 	game->player.spr.step = 0;
 	game->player.spr.frame = 0;
 	game->player.spr.frame_max = 2;
-	game->player.spr.i = 64;
-
+	game->player.spr.i = 0;
 }
 
 void	init_flag(t_game *game)
 {
 	game->flag.collect_all = FALSE;
+	game->flag.held_keys = FALSE;
 	game->flag.player_walk = FALSE;
+	game->flag.step_cnt = FALSE;
 	game->flag.game_end = FALSE;
 }
 
@@ -243,6 +219,14 @@ void	init_game(t_game *game)
 	init_window(game);
 	init_dir(game);
 	init_img(game);
+	init_player(game);
+	init_flag(game);
+}
+
+void	reset_game(t_game *game)
+{
+	init_collec(game);
+	get_compo_coord(game);
 	init_player(game);
 	init_flag(game);
 }
