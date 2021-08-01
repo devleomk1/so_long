@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 02:27:06 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/31 06:58:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/01 23:18:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@
 # define KEY_S				1
 # define KEY_D				2
 # define KEY_R				15
-
 
 #endif
