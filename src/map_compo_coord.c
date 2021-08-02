@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:14:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/27 22:58:21 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/02 21:52:50 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	init_compo_cnt(t_game *game)
 	game->maps.cnt.p = 0;
 	game->maps.cnt.e = 0;
 	game->maps.cnt.c = 0;
+	game->maps.cnt.r = 0;
 }
 
 static void	_compo_coord(t_game *game, int i, int j)
@@ -24,13 +25,21 @@ static void	_compo_coord(t_game *game, int i, int j)
 	if (game->maps.coord[i][j] == 'P')
 	{
 		game->player.spr.x = j;
+		game->player.spr.x0 = j;
 		game->player.spr.y = i;
+		game->player.spr.y0 = i;
 		game->maps.cnt.p++;
 	}
 	else if (game->maps.coord[i][j] == 'C')
 	{
 		game->maps.cnt.c++;
 		clst_add_back(&(game->collec.clst), clst_new(game, j, i));
+	}
+	else if (game->maps.coord[i][j] == 'R')
+	{
+		game->enemy.x = j;
+		game->enemy.y = i;
+		game->maps.cnt.r++;
 	}
 	else if (game->maps.coord[i][j] == 'E')
 		game->maps.cnt.e++;
@@ -41,6 +50,8 @@ int	check_compo_cnt(t_game *game)
 	if (game->maps.cnt.p != 1)
 		return (FALSE);
 	if (game->maps.cnt.e != 1)
+		return (FALSE);
+	if (game->maps.cnt.r != 1)
 		return (FALSE);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/31 07:19:44 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/02 21:28:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_window(t_game *game)
 	game->mlx = mlx_init();
 	width = game->maps.cols * TILE_SIZE;
 	height = game->maps.rows * TILE_SIZE;
-	game->win = mlx_new_window(game->mlx, width, height + 64, "so_long");
+	game->win = mlx_new_window(game->mlx, width, height/* + 64*/, "so_long");
 }
 
 void	draw_collect(t_game *game)
@@ -67,9 +67,8 @@ void	event_exit(t_game *game)
 		ft_putstr_fd("=====================\n", 1);
 		ft_putstr_fd("THANK YOU FOR PLAYING\n", 1);
 		ft_putstr_fd(" Press [ESC] to exit\n", 1);
+		ft_putstr_fd(" Press  [R] to retry\n", 1);
 		ft_putstr_fd("=====================\n", 1);
-		ft_put_img64(game, game->ending.ptr,
-			game->maps.cols / 2 - 1, game->maps.rows / 2);
 		game->flag.game_end = TRUE;
 	}
 }
@@ -78,16 +77,73 @@ void	flag_checker(t_game *game)
 {
 	if (game->maps.cnt.c == game->player.item)
 		game->flag.collect_all = TRUE;
+	if (game->player.spr.x == game->enemy.x
+		&& game->player.spr.y == game->enemy.y)
+	{
+		game->flag.game_end = TRUE;
+	}
+
+}
+
+void	draw_ending(t_game *game)
+{
+	t_img	*spr;
+	int		*i;
+
+	i = &(game->player.spr.i);
+	if (*i >= 60)
+		*i = 0;
+	if (20 <= *i && *i < 40)
+		spr = &(game->player.spr.img1);
+	else if (40 <= *i && *i < 60)
+		spr = &(game->player.spr.img2);
+	else
+		spr = &(game->player.spr.img0);
+	mlx_clear_window(game->mlx, game->win);
+	ft_put_img64(game, game->ending.ptr,
+		game->maps.cols / 2 - 1, game->maps.rows / 2);
+	ft_put_img64(game, spr->ptr, 0, 0);
+	(*i)++;
+
+}
+
+void	draw_opening(t_game *game)
+{
+
+}
+
+void	draw_sprites(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->maps.rows)
+	{
+		j = 0;
+		while (j < game->maps.cols)
+		{
+			if (game->player.spr.x == j && game->player.spr.y == i)
+				draw_player(game);
+			else if (game->enemy.x == j && game->enemy.y == i)
+				ft_put_img64(game, game->enemy.img0.ptr, game->enemy.x, game->enemy.y - 1);
+			j++;
+		}
+		i++;
+	}
 }
 
 int	main_loop(t_game *game)
 {
-	if (!game->flag.game_end)
+	if (game->flag.game_end)
+		draw_ending(game);
+	else if (game->flag.game_opening)
+		draw_opening(game);
+	else
 	{
 		draw_map(game);
 		draw_collect(game);
-		draw_player(game);
-		ft_put_img(game, game->txt.ptr, 0, game->maps.rows * TILE_SIZE);
+		draw_sprites(game);
 		draw_step_count(game);
 		flag_checker(game);
 		event_exit(game);
@@ -102,7 +158,7 @@ void	init_player(t_game *game)
 	game->player.item = 0;
 	game->player.spr.step = 0;
 	game->player.spr.frame = 0;
-	game->player.spr.frame_max = 2;
+	game->player.spr.frame_max = P_MAX_FRAME;
 	game->player.spr.i = 0;
 }
 
@@ -112,6 +168,7 @@ void	init_flag(t_game *game)
 	game->flag.held_keys = FALSE;
 	game->flag.player_walk = FALSE;
 	game->flag.step_cnt = FALSE;
+	game->flag.game_opening = FALSE;
 	game->flag.game_end = FALSE;
 }
 
@@ -124,13 +181,17 @@ void	init_game(t_game *game)
 	init_flag(game);
 }
 
-void	reset_game(t_game *game)
+int	reset_game(t_game *game)
 {
+	ft_putstr_fd("RESET\n", 1);
 	init_collec(game);
 	get_compo_coord(game);
 	init_player(game);
 	init_flag(game);
+	return (0);
 }
+
+
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:17:43 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/29 17:12:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/02 15:29:24 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_map_compo(char c)
 {
 	if (c == '0' || c == '1' || c == 'C'
 		|| c == 'E' || c == 'P' || c == ' '
-		|| c == 'S')
+		|| c == 'R')
 		return (TRUE);
 	return (FALSE);
 }

@@ -6,13 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:16:05 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/31 07:16:23 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/02 01:47:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print_step_count(t_game *game)
+static void	print_step_count(t_game *game)
 {
 	ft_putstr_fd("Step : ", 1);
 	ft_putnbr_fd(game->player.spr.step, 1);

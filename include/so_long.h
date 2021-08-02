@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/31 07:03:16 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/02 21:19:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define MAP_EXT	".ber"
 
-# define TILE_SIZE 64
+# define TILE_SIZE		64
 
 # define TRUE			1
 # define FALSE			0
@@ -41,11 +41,18 @@
 # define DIR_WEST		3
 # define DIR_EAST		4
 
+/* Player */
 # define LIFE_MAX		1
-# define PLAYER_SPEED	4
+# define P_MAX_FRAME	3	//0, 1, 2, 3
 
-# define WIDTH COLS * TILE_SIZE
-# define HEIGHT ROWS * TILE_SIZE
+/**
+ * Player Speed
+ * Default	: 4
+ * Min		: 1
+ * Max		: 64
+ * Enter only multiples of 2.
+ */
+# define PLAYER_SPEED	4
 
 typedef struct s_coord
 {
@@ -71,6 +78,7 @@ typedef struct s_tile
 	t_img	tl;
 	t_img	tb;
 	t_img	ts;
+	t_img	nl;
 }			t_tile;
 
 typedef struct s_spr
@@ -107,6 +115,7 @@ typedef struct s_compo
 	int		p;
 	int		e;
 	int		c;
+	int		r;
 }			t_compo;
 
 
@@ -133,6 +142,7 @@ typedef struct	s_flags
 	int		held_keys;
 	int		player_walk;
 	int		step_cnt;
+	int		game_opening;
 	int		game_end;
 }			t_flags;
 
@@ -161,7 +171,7 @@ void	init_collec(t_game *game);
 void	init_player(t_game *game);
 void	init_flag(t_game *game);
 void	init_game(t_game *game);
-void	reset_game(t_game *game);
+int		reset_game(t_game *game);
 
 void	init_dir(t_game *game);
 void	dir_to_coord(int dir, int *x, int *y);
@@ -190,5 +200,8 @@ void	clst_add_back(t_clst **lst, t_clst *new);
 void	clst_clear(t_clst *head);
 
 void	draw_map(t_game *game);
+void	init_img(t_game *game);
+void	draw_player(t_game *game);
+void	draw_step_count(t_game *game);
 
 #endif
