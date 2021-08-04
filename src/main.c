@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/02 21:28:52 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/04 09:59:42 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_window(t_game *game)
 	game->mlx = mlx_init();
 	width = game->maps.cols * TILE_SIZE;
 	height = game->maps.rows * TILE_SIZE;
-	game->win = mlx_new_window(game->mlx, width, height/* + 64*/, "so_long");
+	game->win = mlx_new_window(game->mlx, width, height, "so_long");
 }
 
 void	draw_collect(t_game *game)
@@ -80,38 +80,62 @@ void	flag_checker(t_game *game)
 	if (game->player.spr.x == game->enemy.x
 		&& game->player.spr.y == game->enemy.y)
 	{
-		game->flag.game_end = TRUE;
+		ft_putstr_fd("=====================\n", 1);
+		ft_putstr_fd("      YOU DIED\n", 1);
+		ft_putstr_fd(" Press [ESC] to exit\n", 1);
+		ft_putstr_fd(" Press  [R] to retry\n", 1);
+		ft_putstr_fd("=====================\n", 1);
+		game->flag.game_over = TRUE;
 	}
 
+}
+
+t_img	*get_end_anim_spr(t_game *game)
+{
+	int		*i;
+
+	i = &(game->pika.i);
+	if (*i >= 60)
+		*i = 0;
+	if (20 <= *i && *i < 40)
+		return (&(game->pika.img1));
+	else if (40 <= *i && *i < 60)
+		return (&(game->pika.img0));
+	else
+		return (&(game->pika.img0));
 }
 
 void	draw_ending(t_game *game)
 {
 	t_img	*spr;
-	int		*i;
+	int		x;
+	int		y;
 
-	i = &(game->player.spr.i);
-	if (*i >= 60)
-		*i = 0;
-	if (20 <= *i && *i < 40)
-		spr = &(game->player.spr.img1);
-	else if (40 <= *i && *i < 60)
-		spr = &(game->player.spr.img2);
-	else
-		spr = &(game->player.spr.img0);
+	x = game->maps.cols / 2 - 2;
+	y = game->maps.rows / 2 - 2;
+	//spr = get_end_anim_spr(game);
 	mlx_clear_window(game->mlx, game->win);
-	ft_put_img64(game, game->ending.ptr,
-		game->maps.cols / 2 - 1, game->maps.rows / 2);
-	ft_put_img64(game, spr->ptr, 0, 0);
-	(*i)++;
-
+	ft_put_img64(game, game->ending.ptr, x, y);
+	//ft_put_img(game, spr->ptr, x * TILE_SIZE, 32);
+	game->pika.i++;
 }
 
-void	draw_opening(t_game *game)
+void	draw_gameover(t_game *game)
 {
+	int		x;
+	int		y;
 
+	x = game->maps.cols / 2 - 2;
+	y = game->maps.rows / 2 - 2;
+	mlx_clear_window(game->mlx, game->win);
+	ft_put_img64(game, game->gameover.ptr, x, y);
 }
 
+/**
+ * If you print the sprites at the
+ * top of the screen first, they
+ * do not overlap unnaturally.
+ */
 void	draw_sprites(t_game *game)
 {
 	int	i;
@@ -135,10 +159,10 @@ void	draw_sprites(t_game *game)
 
 int	main_loop(t_game *game)
 {
-	if (game->flag.game_end)
+	if (game->flag.game_over)
+		draw_gameover(game);
+	else if (game->flag.game_end)
 		draw_ending(game);
-	else if (game->flag.game_opening)
-		draw_opening(game);
 	else
 	{
 		draw_map(game);
@@ -153,13 +177,13 @@ int	main_loop(t_game *game)
 
 void	init_player(t_game *game)
 {
-	game->player.life = LIFE_MAX;
 	game->player.step = 0;
 	game->player.item = 0;
 	game->player.spr.step = 0;
 	game->player.spr.frame = 0;
 	game->player.spr.frame_max = P_MAX_FRAME;
 	game->player.spr.i = 0;
+	game->pika.i = 0;
 }
 
 void	init_flag(t_game *game)
@@ -169,6 +193,7 @@ void	init_flag(t_game *game)
 	game->flag.player_walk = FALSE;
 	game->flag.step_cnt = FALSE;
 	game->flag.game_opening = FALSE;
+	game->flag.game_over = FALSE;
 	game->flag.game_end = FALSE;
 }
 
@@ -190,8 +215,6 @@ int	reset_game(t_game *game)
 	init_flag(game);
 	return (0);
 }
-
-
 
 int	main(int argc, char **argv)
 {

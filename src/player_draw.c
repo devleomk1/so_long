@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:09:00 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/02 22:08:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/03 10:55:28 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	draw_player(t_game *game)
 		draw_player_walk(game, player, sprite, dir);
 	else
 		ft_put_img64(game, sprite->ptr, player->x, player->y - 1);
-		//draw_player_walk(game, player, sprite, DIR_NONE);
 }
 
 void	draw_enemy(t_game *game)

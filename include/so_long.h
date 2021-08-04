@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/02 21:19:09 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:59:54 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct	s_flags
 	int		player_walk;
 	int		step_cnt;
 	int		game_opening;
+	int		game_over;
 	int		game_end;
 }			t_flags;
 
@@ -152,7 +153,8 @@ typedef struct	s_game
 	void		*mlx;
 	void		*win;
 	t_img		img64;
-	t_img		txt;
+	t_spr		pika;
+	t_img		gameover;
 	t_img		ending;
 	t_tile		tile;
 	t_coll		collec;

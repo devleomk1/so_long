@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:14:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/02 21:52:50 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/03 10:57:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_compo_cnt(t_game *game)
 		return (FALSE);
 	if (game->maps.cnt.e != 1)
 		return (FALSE);
-	if (game->maps.cnt.r != 1)
+	if (game->maps.cnt.r > 2)
 		return (FALSE);
 	return (TRUE);
 }
