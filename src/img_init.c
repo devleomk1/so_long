@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:18:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/03 15:21:26 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 10:02:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ static void	tile_img_init(t_game *game)
 static void	player_img_init(t_game *game)
 {
 	game->player.spr.img0.ptr = ft_xpm_to_img(game, "player_fr.xpm");
+	game->player.spr.imgx[DIR_NORTH][0].ptr = ft_xpm_to_img(game, "player_N00.xpm");
+	game->player.spr.imgx[DIR_NORTH][1].ptr = ft_xpm_to_img(game, "player_N01.xpm");
+	game->player.spr.imgx[DIR_NORTH][2].ptr = ft_xpm_to_img(game, "player_N02.xpm");
+	game->player.spr.imgx[DIR_SOUTH][0].ptr = ft_xpm_to_img(game, "player_S00.xpm");
+	game->player.spr.imgx[DIR_SOUTH][1].ptr = ft_xpm_to_img(game, "player_S01.xpm");
+	game->player.spr.imgx[DIR_SOUTH][2].ptr = ft_xpm_to_img(game, "player_S02.xpm");
+	game->player.spr.imgx[DIR_WEST][0].ptr = ft_xpm_to_img(game, "player_W00.xpm");
+	game->player.spr.imgx[DIR_WEST][1].ptr = ft_xpm_to_img(game, "player_W01.xpm");
+	game->player.spr.imgx[DIR_WEST][2].ptr = ft_xpm_to_img(game, "player_W02.xpm");
+	game->player.spr.imgx[DIR_EAST][0].ptr = ft_xpm_to_img(game, "player_E00.xpm");
+	game->player.spr.imgx[DIR_EAST][1].ptr = ft_xpm_to_img(game, "player_E01.xpm");
+	game->player.spr.imgx[DIR_EAST][2].ptr = ft_xpm_to_img(game, "player_E02.xpm");
 	game->player.spr.img1.ptr = ft_xpm_to_img(game, "player01.xpm");
 	game->player.spr.img2.ptr = ft_xpm_to_img(game, "player02.xpm");
 	game->enemy.img0.ptr = ft_xpm_to_img(game, "rocket00.xpm");

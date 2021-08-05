@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/04 09:59:42 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 10:29:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	draw_sprites(t_game *game)
 			if (game->player.spr.x == j && game->player.spr.y == i)
 				draw_player(game);
 			else if (game->enemy.x == j && game->enemy.y == i)
-				ft_put_img64(game, game->enemy.img0.ptr, game->enemy.x, game->enemy.y - 1);
+				draw_enemy(game);
 			j++;
 		}
 		i++;
@@ -183,6 +183,8 @@ void	init_player(t_game *game)
 	game->player.spr.frame = 0;
 	game->player.spr.frame_max = P_MAX_FRAME;
 	game->player.spr.i = 0;
+	game->player.spr.dir = DIR_SOUTH;
+	game->player.spr.move = TRUE;
 	game->pika.i = 0;
 }
 

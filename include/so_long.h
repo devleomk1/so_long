@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/03 15:59:54 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 10:28:06 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_spr
 	t_img	img0;
 	t_img	img1;
 	t_img	img2;
+	t_img	imgx[5][3];
 	int		frame;
 	int		frame_max;
 	int		step;
@@ -95,6 +96,7 @@ typedef struct s_spr
 	int		y0;
 	int		i;
 	int		dir;
+	int		move;
 }			t_spr;
 
 typedef struct s_clst
@@ -204,6 +206,7 @@ void	clst_clear(t_clst *head);
 void	draw_map(t_game *game);
 void	init_img(t_game *game);
 void	draw_player(t_game *game);
+void	draw_enemy(t_game *game);
 void	draw_step_count(t_game *game);
 
 #endif

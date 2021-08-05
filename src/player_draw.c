@@ -6,22 +6,22 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:09:00 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/03 10:55:28 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 10:35:11 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static t_img	*get_player_sprimg(t_game *game)
+static t_img	*get_player_sprimg(t_game *game, int dir)
 {
 	t_img	*spr;
 
 	if (game->player.spr.frame == 1)
-		spr = &(game->player.spr.img1);
+		spr = &(game->player.spr.imgx[dir][1]);
 	else if (game->player.spr.frame == 3)
-		spr = &(game->player.spr.img2);
+		spr = &(game->player.spr.imgx[dir][2]);
 	else
-		spr = &(game->player.spr.img0);
+		spr = &(game->player.spr.imgx[dir][0]);
 	return (spr);
 }
 
@@ -32,8 +32,10 @@ void	draw_player_walk(t_game *game, t_spr *player, t_img *sprite, int dir)
 	int	y;
 
 	game->flag.held_keys = TRUE;
-	x = (player->x0 * TILE_SIZE) + (game->dir2coord[dir].x * player->i);
-	y = ((player->y0 - 1) * TILE_SIZE) + (game->dir2coord[dir].y * player->i);
+	x = (player->x0 * TILE_SIZE)
+		+ (game->dir2coord[dir].x * player->i * player->move);
+	y = ((player->y0 - 1) * TILE_SIZE)
+		+ (game->dir2coord[dir].y * player->i * player->move);
 	ft_put_img(game, sprite->ptr, x, y);
 	player->i += PLAYER_SPEED;
 	if (player->i >= 64)
@@ -53,7 +55,7 @@ void	draw_player(t_game *game)
 
 	dir = game->player.spr.dir;
 	player = &(game->player.spr);
-	sprite = get_player_sprimg(game);
+	sprite = get_player_sprimg(game, dir);
 	if (game->flag.player_walk)
 		draw_player_walk(game, player, sprite, dir);
 	else
