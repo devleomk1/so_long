@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/05 10:28:06 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 22:08:49 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
  * Enter only multiples of 2.
  */
 # define PLAYER_SPEED	4
+# define ENEMY_SPEED	8
 
 typedef struct s_coord
 {
@@ -83,9 +84,6 @@ typedef struct s_tile
 
 typedef struct s_spr
 {
-	t_img	img0;
-	t_img	img1;
-	t_img	img2;
 	t_img	imgx[5][3];
 	int		frame;
 	int		frame_max;
@@ -143,6 +141,7 @@ typedef struct	s_flags
 	int		collect_all;
 	int		held_keys;
 	int		player_walk;
+	int		enemy_walk;
 	int		step_cnt;
 	int		game_opening;
 	int		game_over;
@@ -154,6 +153,7 @@ typedef struct	s_game
 {
 	void		*mlx;
 	void		*win;
+	int			fps;
 	t_img		img64;
 	t_spr		pika;
 	t_img		gameover;
@@ -208,5 +208,8 @@ void	init_img(t_game *game);
 void	draw_player(t_game *game);
 void	draw_enemy(t_game *game);
 void	draw_step_count(t_game *game);
+
+int		_move_dir(t_game *game, t_spr *sprite, int dir);
+void	spin_clockwise(t_game *game, t_spr *sprite);
 
 #endif

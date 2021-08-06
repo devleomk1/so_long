@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:09:00 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/05 10:35:11 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 22:26:10 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,4 @@ void	draw_player(t_game *game)
 		draw_player_walk(game, player, sprite, dir);
 	else
 		ft_put_img64(game, sprite->ptr, player->x, player->y - 1);
-}
-
-void	draw_enemy(t_game *game)
-{
-	ft_put_img64(game, game->enemy.img0.ptr, game->enemy.x, game->enemy.y - 1);
 }

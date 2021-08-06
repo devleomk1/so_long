@@ -6,13 +6,30 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:54:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/05 10:33:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 22:26:04 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	_move_dir(t_game *game, t_spr *sprite, int dir)
+void	spin_clockwise(t_game *game, t_spr *sprite)
+{
+	int *dir;
+
+	dir = &(sprite->dir);
+	if (*dir == DIR_NORTH)
+		*dir = DIR_EAST;
+	else if (*dir == DIR_SOUTH)
+		*dir = DIR_WEST;
+	else if (*dir == DIR_WEST)
+		*dir = DIR_NORTH;
+	else if (*dir == DIR_EAST)
+		*dir = DIR_SOUTH;
+	else
+		*dir = DIR_NONE;
+}
+
+int	_move_dir(t_game *game, t_spr *sprite, int dir)
 {
 	sprite->x0 = sprite->x;
 	sprite->y0 = sprite->y;

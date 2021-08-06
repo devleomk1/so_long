@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:14:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/03 10:57:57 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/05 12:02:43 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static void	_compo_coord(t_game *game, int i, int j)
 	else if (game->maps.coord[i][j] == 'R')
 	{
 		game->enemy.x = j;
+		game->enemy.x0 = j;
 		game->enemy.y = i;
+		game->enemy.y0 = i;
 		game->maps.cnt.r++;
 	}
 	else if (game->maps.coord[i][j] == 'E')

@@ -4,5 +4,5 @@ all :
 	main.c collec.c ft_mlx.c error.c key.c \
 	map_check_ext.c map_compo_coord.c map_parse.c map_read.c map_draw.c \
 	move_collision.c move_dir.c move_init.c util_lst.c \
-	img_init.c step_count.c player_draw.c
+	img_init.c step_count.c player_draw.c enemy_draw.c
 
