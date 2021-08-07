@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 16:12:51 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:17:37 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,27 @@ void	draw_exclamation(t_game *game, t_spr *sprite)
 	ft_put_img64(game, game->tile.ts.ptr, x, y);
 }
 
+void	draw_start(t_game *game)
+{
+	mlx_clear_window(game->mlx, game->win);
+}
+
+void	game_scene_event(t_game *game)
+{
+	if (game->flag.game_scene == GAME_START)
+		draw_start(game);
+	else if (game->flag.game_scene == GAME_OVER)
+		draw_gameover(game);
+	else if (game->flag.game_scene == GAME_ENDING)
+		draw_ending(game);
+	else
+		exit_err("GAME SCENE ERROR\n");
+}
+
 int	main_loop(t_game *game)
 {
-	if (game->flag.game_over)
-		draw_gameover(game);
-	else if (game->flag.game_end)
-		draw_ending(game);
+	if (game->flag.game_scene != GAME_PLAYING)
+		game_scene_event(game);
 	else
 	{
 		draw_map(game);

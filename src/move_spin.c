@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 12:12:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 12:15:36 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:49:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,9 @@
 
 void	spin_clockwise(t_game *game, t_spr *sprite)
 {
-	int	*dir;
-
-	dir = &(sprite->dir);
-	if (*dir == DIR_NORTH)
-		*dir = DIR_EAST;
-	else if (*dir == DIR_SOUTH)
-		*dir = DIR_WEST;
-	else if (*dir == DIR_WEST)
-		*dir = DIR_NORTH;
-	else if (*dir == DIR_EAST)
-		*dir = DIR_SOUTH;
-	else
-		*dir = DIR_NONE;
+	if (sprite->dir == DIR_NONE)
+		return ;
+	sprite->dir++;
+	if (sprite->dir > DIR_EAST)
+		sprite->dir = DIR_SOUTH;
 }

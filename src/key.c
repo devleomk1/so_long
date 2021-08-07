@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:34:08 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/05 12:11:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:28:41 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	deal_key(int key_code, t_game *game)
 {
 	if (key_code == KEY_ESC)
 		exit(0);
+	else if (key_code == KEY_RETURN && game->flag.game_scene == GAME_START)
+		game->flag.game_scene = GAME_PLAYING;
 	else if (key_code == KEY_R)
 		reset_game(game);
 	else if (game->flag.held_keys == FALSE)

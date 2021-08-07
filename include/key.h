@@ -6,12 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 02:27:06 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 16:33:50 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:41:53 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_H
 # define KEY_H
+# include "so_long.h"
 
 # define X_EVENT_KEY_PRESS		2
 
@@ -20,6 +21,7 @@
 
 # define KEY_ESC			53
 # define KEY_R				15
+# define KEY_RETURN			36
 
 # define KEY_W				13
 # define KEY_A				0
@@ -29,5 +31,9 @@
 # define KEY_LEFT			123
 # define KEY_DOWN			125
 # define KEY_RIGHT			124
+
+typedef struct s_game	t_game;
+
+int		deal_key(int key_code, t_game *game);
 
 #endif

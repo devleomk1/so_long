@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 11:01:18 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 16:04:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:34:50 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	draw_enemy_walk(t_game *game, t_spr *enemy, t_img *sprite, int dir)
 		enemy->i = 0;
 		game->flag.held_keys = FALSE;
 		game->flag.enemy_walk = FALSE;
-		game->flag.game_over = TRUE;
+		//game->flag.game_over = TRUE;
+		game->flag.game_scene = GAME_OVER;
 	}
 }
 

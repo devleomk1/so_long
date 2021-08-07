@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 16:11:33 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:47:08 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,21 @@
 
 # define TRUE			1
 # define FALSE			0
-# define SUCCESS		1
-# define FAIL			0
 
 # define DIR_NONE		0
-# define DIR_NORTH		1
-# define DIR_SOUTH		2
-# define DIR_WEST		3
+# define DIR_SOUTH		1
+# define DIR_WEST		2
+# define DIR_NORTH		3
 # define DIR_EAST		4
 
-/* Player */
-# define P_MAX_FRAME	3	//0, 1, 2, '3'
-
-/* Game Scene */
+/* Game Scene Status */
 # define GAME_START		0
 # define GAME_PLAYING	1
 # define GAME_OVER		2
 # define GAME_ENDING	3
+
+/* Player */
+# define P_MAX_FRAME	3	//0, 1, 2, '3'
 
 /**
  * Player Speed
@@ -66,15 +64,19 @@ typedef struct s_coord
 	int		y;
 }			t_coord;
 
+typedef struct s_clst
+{
+	t_coord			coord;
+	int				istouch;
+	struct s_clst	*next;
+}					t_clst;
+
 typedef struct s_img
 {
 	void	*ptr;
 	int		*data;
 	int		h;
 	int		w;
-	int		size_l;
-	int		bpp;
-	int		endian;
 }			t_img;
 
 typedef struct s_tile
@@ -101,13 +103,6 @@ typedef struct s_spr
 	int		dir;
 	int		move;
 }			t_spr;
-
-typedef struct s_clst
-{
-	t_coord			coord;
-	int				istouch;
-	struct s_clst	*next;
-}					t_clst;
 
 typedef struct s_coll
 {
@@ -149,11 +144,7 @@ typedef struct	s_flags
 	int		enemy_walk;
 	int		step_cnt;
 	int		game_scene;
-	int		game_opening;
-	int		game_over;
-	int		game_end;
 }			t_flags;
-
 
 typedef struct	s_game
 {
@@ -203,8 +194,6 @@ int		open_file(char *filename);
 void	map_load(t_game *game, char *filename);
 void	get_compo_coord(t_game *game);
 void	file_read(t_game *game, char *filename);
-
-int		deal_key(int key_code, t_game *game);
 
 t_clst	*clst_new(t_game *game, int x, int y);
 t_clst	*clst_last(t_clst *lst);
