@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:18:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 16:37:09 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 18:03:24 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	player_img_init(t_game *game)
 	t_spr	*ply;
 
 	ply = &(game->player.spr);
-	ply->imgx[DIR_NORTH][0].ptr = ft_xpm_to_img(game, "../asset/player_N00.xpm");
+	ply->imgx[DIR_NORTH][0].ptr = ft_xpm_to_img(game, "player_N00.xpm");
 	ply->imgx[DIR_NORTH][1].ptr = ft_xpm_to_img(game, "player_N01.xpm");
 	ply->imgx[DIR_NORTH][2].ptr = ft_xpm_to_img(game, "player_N02.xpm");
 	ply->imgx[DIR_SOUTH][0].ptr = ft_xpm_to_img(game, "player_S00.xpm");

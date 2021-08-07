@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:34:08 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 16:28:41 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:52:41 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	deal_key(int key_code, t_game *game)
 		game->flag.game_scene = GAME_PLAYING;
 	else if (key_code == KEY_R)
 		reset_game(game);
-	else if (game->flag.held_keys == FALSE)
+	else if (!game->flag.held_keys)
 	{
 		if (key_code == KEY_W || key_code == KEY_UP)
 			move_north(game, &(game->player.spr));

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 17:47:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 18:04:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include "../lib/include/get_next_line.h"
 
 # define MAP_EXT	".ber"
+
+# define ASSET_PATH		"../asset/"
 
 # define TILE_SIZE		64
 
@@ -118,8 +120,7 @@ typedef struct s_compo
 	int		r;
 }			t_compo;
 
-
-typedef struct	s_map
+typedef struct s_map
 {
 	int		rows;
 	int		cols;
@@ -128,7 +129,7 @@ typedef struct	s_map
 	t_compo	cnt;
 }			t_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	t_spr	spr;
 	int		life;
@@ -136,7 +137,7 @@ typedef struct	s_player
 	int		item;
 }			t_player;
 
-typedef struct	s_flags
+typedef struct s_flags
 {
 	int		collect_all;
 	int		held_keys;
@@ -146,7 +147,7 @@ typedef struct	s_flags
 	int		game_scene;
 }			t_flags;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
