@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 11:01:18 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 14:40:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:04:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ void	draw_enemy(t_game *game)
 		draw_enemy_walk(game, enemy, sprite, dir);
 	else
 		ft_put_img64(game, sprite->ptr, enemy->x0, enemy->y0 - 1);
+
 }

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 10:34:01 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:11:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@
 
 /* Player */
 # define P_MAX_FRAME	3	//0, 1, 2, '3'
+
+/* Game Scene */
+# define GAME_START		0
+# define GAME_PLAYING	1
+# define GAME_OVER		2
+# define GAME_ENDING	3
 
 /**
  * Player Speed
@@ -142,6 +148,7 @@ typedef struct	s_flags
 	int		player_walk;
 	int		enemy_walk;
 	int		step_cnt;
+	int		game_scene;
 	int		game_opening;
 	int		game_over;
 	int		game_end;

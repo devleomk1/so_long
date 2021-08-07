@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 16:32:50 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:12:51 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ void	frame_cunt(t_game *game)
 	game->fps++;
 	if (game->fps >= 600)
 		game->fps = 0;
+}
+
+
+void	draw_exclamation(t_game *game, t_spr *sprite)
+{
+	int	x;
+	int	y;
+
+	x = sprite->x0;
+	y = sprite->y0;
+	ft_put_img64(game, game->tile.ts.ptr, x, y);
 }
 
 int	main_loop(t_game *game)
