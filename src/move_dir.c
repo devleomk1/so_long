@@ -6,30 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:54:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/05 22:26:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/06 12:15:04 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	spin_clockwise(t_game *game, t_spr *sprite)
-{
-	int *dir;
-
-	dir = &(sprite->dir);
-	if (*dir == DIR_NORTH)
-		*dir = DIR_EAST;
-	else if (*dir == DIR_SOUTH)
-		*dir = DIR_WEST;
-	else if (*dir == DIR_WEST)
-		*dir = DIR_NORTH;
-	else if (*dir == DIR_EAST)
-		*dir = DIR_SOUTH;
-	else
-		*dir = DIR_NONE;
-}
-
-int	_move_dir(t_game *game, t_spr *sprite, int dir)
+void	move_dir(t_game *game, t_spr *sprite, int dir)
 {
 	sprite->x0 = sprite->x;
 	sprite->y0 = sprite->y;
@@ -49,25 +32,24 @@ int	_move_dir(t_game *game, t_spr *sprite, int dir)
 	else
 		sprite->move = FALSE;
 	game->flag.player_walk = TRUE;
-	return (1);
 }
 
 void	move_north(t_game *game, t_spr *sprite)
 {
-	_move_dir(game, sprite, DIR_NORTH);
+	move_dir(game, sprite, DIR_NORTH);
 }
 
 void	move_south(t_game *game, t_spr *sprite)
 {
-	_move_dir(game, sprite, DIR_SOUTH);
+	move_dir(game, sprite, DIR_SOUTH);
 }
 
 void	move_west(t_game *game, t_spr *sprite)
 {
-	_move_dir(game, sprite, DIR_WEST);
+	move_dir(game, sprite, DIR_WEST);
 }
 
 void	move_east(t_game *game, t_spr *sprite)
 {
-	_move_dir(game, sprite, DIR_EAST);
+	move_dir(game, sprite, DIR_EAST);
 }

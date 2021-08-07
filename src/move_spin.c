@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key.h                                              :+:      :+:    :+:   */
+/*   move_spin.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/18 02:27:06 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 16:33:50 by jisokang         ###   ########.fr       */
+/*   Created: 2021/08/06 12:12:32 by jisokang          #+#    #+#             */
+/*   Updated: 2021/08/06 12:15:36 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEY_H
-# define KEY_H
+#include "so_long.h"
 
-# define X_EVENT_KEY_PRESS		2
+void	spin_clockwise(t_game *game, t_spr *sprite)
+{
+	int	*dir;
 
-/* Clicking on the RED cross on the window frame */
-# define X_EVENT_KEY_EXIT		17
-
-# define KEY_ESC			53
-# define KEY_R				15
-
-# define KEY_W				13
-# define KEY_A				0
-# define KEY_S				1
-# define KEY_D				2
-# define KEY_UP				126
-# define KEY_LEFT			123
-# define KEY_DOWN			125
-# define KEY_RIGHT			124
-
-#endif
+	dir = &(sprite->dir);
+	if (*dir == DIR_NORTH)
+		*dir = DIR_EAST;
+	else if (*dir == DIR_SOUTH)
+		*dir = DIR_WEST;
+	else if (*dir == DIR_WEST)
+		*dir = DIR_NORTH;
+	else if (*dir == DIR_EAST)
+		*dir = DIR_SOUTH;
+	else
+		*dir = DIR_NONE;
+}

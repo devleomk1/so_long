@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collec.c                                           :+:      :+:    :+:   */
+/*   draw_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/27 05:47:01 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 12:17:12 by jisokang         ###   ########.fr       */
+/*   Created: 2021/08/06 16:32:14 by jisokang          #+#    #+#             */
+/*   Updated: 2021/08/06 16:32:37 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_collec(t_game *game)
+/**
+ * If you print the sprites at the
+ * top of the screen first, they
+ * do not overlap unnaturally.
+ */
+void	draw_sprites(t_game *game)
 {
-	game->collec.clst = NULL;
-}
+	int	i;
+	int	j;
 
-void	draw_collect(t_game *game)
-{
-	int		x;
-	int		y;
-	t_clst	*lst;
-
-	x = game->player.spr.x;
-	y = game->player.spr.y;
-	lst = game->collec.clst;
-	while (lst)
+	i = 0;
+	while (i < game->maps.rows)
 	{
-		if (!lst->istouch)
+		j = 0;
+		while (j < game->maps.cols)
 		{
-			if (lst->coord.x == x && lst->coord.y == y)
-			{
-				lst->istouch = TRUE;
-				game->player.item++;
-			}
-			ft_put_img64(game, game->collec.ball.ptr,
-				lst->coord.x, lst->coord.y);
+			if (game->player.spr.x == j && game->player.spr.y == i)
+				draw_player(game);
+			else if (game->enemy.x == j && game->enemy.y == i)
+				draw_enemy(game);
+			j++;
 		}
-		lst = lst->next;
+		i++;
 	}
 }

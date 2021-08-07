@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/05 22:08:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 10:34:01 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@
 # define DIR_EAST		4
 
 /* Player */
-# define LIFE_MAX		1
-# define P_MAX_FRAME	3	//0, 1, 2, 3
+# define P_MAX_FRAME	3	//0, 1, 2, '3'
 
 /**
  * Player Speed
@@ -172,6 +171,8 @@ void	ft_put_img64(t_game *game, void *img_ptr, int x, int y);
 void	ft_put_img(t_game *game, void *img_ptr, int x, int y);
 
 void	init_collec(t_game *game);
+void	draw_collect(t_game *game);
+
 void	init_player(t_game *game);
 void	init_flag(t_game *game);
 void	init_game(t_game *game);
@@ -209,7 +210,15 @@ void	draw_player(t_game *game);
 void	draw_enemy(t_game *game);
 void	draw_step_count(t_game *game);
 
-int		_move_dir(t_game *game, t_spr *sprite, int dir);
+void	draw_gameover(t_game *game);
+void	draw_ending(t_game *game);
+void	flag_checker(t_game *game);
+void	enemy_script(t_game *game);
+void	draw_sprites(t_game *game);
+void	event_exit(t_game *game);
+void	init_enemy(t_game *game);
+
+void	move_dir(t_game *game, t_spr *sprite, int dir);
 void	spin_clockwise(t_game *game, t_spr *sprite);
 
 #endif
