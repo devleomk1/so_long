@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 18:04:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 18:15:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "../lib/include/libft.h"
 # include "../lib/include/get_next_line.h"
 
-# define MAP_EXT	".ber"
+# define MAP_EXT		".ber"
 
 # define ASSET_PATH		"../asset/"
 

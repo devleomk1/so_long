@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:18:38 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/27 04:31:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 18:27:30 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	check_ext(char *str, char *ext)
 	i = 0;
 	if (ext[0] != '.')
 		exit_err("Invalid function parameter. ext[0] must be 'dot' charter\n");
+	if (str[0] == '.' && str[1] == '.')
+		i += 2;
 	while (str[i] != '\0' && str[i] != '.')
 		i++;
 	if (!str[i])

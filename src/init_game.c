@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:09:39 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 16:33:58 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/07 18:39:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	init_flag(t_game *game)
 
 void	init_game(t_game *game)
 {
-	game->flag.game_scene = GAME_START;
 	init_window(game);
 	init_dir(game);
 	init_img(game);
 	init_enemy(game);
 	init_player(game);
 	init_flag(game);
+	game->flag.game_scene = GAME_START;
 }
