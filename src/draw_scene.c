@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ending_draw.c                                      :+:      :+:    :+:   */
+/*   draw_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:05:07 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/06 15:06:55 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 11:57:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_img	*get_end_anim_spr(t_game *game)
 		*i = 0;
 	if (20 <= *i && *i < 40)
 		return (&(game->pika.imgx[0][1]));
-	else if (40 <= *i && *i < 60)
-		return (&(game->pika.imgx[0][0]));
 	else
 		return (&(game->pika.imgx[0][0]));
 }
@@ -48,7 +46,7 @@ void	_draw_ending_pika(t_game *game)
 	game->pika.i++;
 }
 
-void	draw_ending(t_game *game)
+void	draw_scene_event(t_game *game)
 {
 	int		x;
 	int		y;
@@ -56,17 +54,15 @@ void	draw_ending(t_game *game)
 	x = game->maps.cols / 2 - 2;
 	y = game->maps.rows / 2 - 2;
 	mlx_clear_window(game->mlx, game->win);
-	_draw_ending_pika(game);
-	ft_put_img64(game, game->ending.ptr, x, y);
-}
-
-void	draw_gameover(t_game *game)
-{
-	int		x;
-	int		y;
-
-	x = game->maps.cols / 2 - 2;
-	y = game->maps.rows / 2 - 2;
-	mlx_clear_window(game->mlx, game->win);
-	ft_put_img64(game, game->gameover.ptr, x, y);
+	if (game->flag.game_scene == GAME_START)
+		ft_put_img64(game, game->opening.ptr, x, y);
+	else if (game->flag.game_scene == GAME_OVER)
+		ft_put_img64(game, game->gameover.ptr, x, y);
+	else if (game->flag.game_scene == GAME_ENDING)
+	{
+		_draw_ending_pika(game);
+		ft_put_img64(game, game->ending.ptr, x, y);
+	}
+	else
+		exit_err("GAME SCENE ERROR\n");
 }

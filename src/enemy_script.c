@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 14:40:23 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 18:31:05 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 11:47:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	init_enemy(t_game *game)
 {
 	game->enemy.dir = DIR_SOUTH;
 	game->enemy.i = 0;
-	game->enemy.x = 0;
-	game->enemy.y = 0;
 	game->enemy.move = TRUE;
 }
 
@@ -52,7 +50,10 @@ void	enemy_find_player(t_game *game)
 
 void	enemy_script(t_game *game)
 {
-	if (game->fps % 100 == 0 && !game->flag.enemy_walk)
-		spin_clockwise(game, &(game->enemy));
-	enemy_find_player(game);
+	if (game->maps.cnt.r > 0)
+	{
+		if (game->fps % 100 == 0 && !game->flag.enemy_walk)
+			spin_clockwise(game, &(game->enemy));
+		enemy_find_player(game);
+	}
 }

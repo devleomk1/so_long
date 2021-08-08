@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:12:02 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 16:35:35 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 10:35:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	event_exit(t_game *game)
 		ft_putstr_fd(" Press [ESC] to exit\n", 1);
 		ft_putstr_fd(" Press  [R] to retry\n", 1);
 		ft_putstr_fd("=====================\n", 1);
-		//game->flag.game_end = TRUE;
 		game->flag.game_scene = GAME_ENDING;
 	}
 }
@@ -46,7 +45,6 @@ void	flag_checker(t_game *game)
 		ft_putstr_fd(" Press [ESC] to exit\n", 1);
 		ft_putstr_fd(" Press  [R] to retry\n", 1);
 		ft_putstr_fd("=====================\n", 1);
-		//game->flag.game_over = TRUE;
-		game->flag.game_scene = GAME_ENDING;
+		game->flag.game_scene = GAME_OVER;
 	}
 }

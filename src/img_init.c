@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:18:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 18:03:24 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 12:55:04 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	enemy_img_init(t_game *game)
 
 static void	etc_img_init(t_game *game)
 {
+	game->opening.ptr = ft_xpm_to_img(game, "opening.xpm");
 	game->gameover.ptr = ft_xpm_to_img(game, "gameover.xpm");
 	game->ending.ptr = ft_xpm_to_img(game, "ending.xpm");
 	game->collec.ball.ptr = ft_xpm_to_img(game, "ball.xpm");

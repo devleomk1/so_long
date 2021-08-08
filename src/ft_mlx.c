@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:47:08 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 18:06:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 12:53:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 void	*ft_xpm_to_img(t_game *game, char *str)
 {
 	char	*path;
+	void	*img;
+
 	path = ft_strjoin(ASSET_PATH, str);
-	return (mlx_xpm_file_to_image(game->mlx, path,
-			&(game->img64.w), &(game->img64.h)));
+	img = mlx_xpm_file_to_image(game->mlx, path,
+			&(game->img64.w), &(game->img64.h));
+	free(path);
+	return (img);
 }
 
 void	ft_put_img64(t_game *game, void *img_ptr, int x, int y)

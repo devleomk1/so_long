@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 18:15:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 11:52:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef struct s_game
 	int			fps;
 	t_img		img64;
 	t_spr		pika;
+	t_img		opening;
 	t_img		gameover;
 	t_img		ending;
 	t_tile		tile;
@@ -206,9 +207,8 @@ void	init_img(t_game *game);
 void	draw_player(t_game *game);
 void	draw_enemy(t_game *game);
 void	draw_step_count(t_game *game);
+void	draw_scene_event(t_game *game);
 
-void	draw_gameover(t_game *game);
-void	draw_ending(t_game *game);
 void	flag_checker(t_game *game);
 void	enemy_script(t_game *game);
 void	draw_sprites(t_game *game);
@@ -217,5 +217,7 @@ void	init_enemy(t_game *game);
 
 void	move_dir(t_game *game, t_spr *sprite, int dir);
 void	spin_clockwise(t_game *game, t_spr *sprite);
+
+void	init_window(t_game *game);
 
 #endif

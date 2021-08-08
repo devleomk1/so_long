@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:09:39 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 18:39:55 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 11:50:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	init_player(t_game *game)
 	game->player.spr.move = TRUE;
 	game->pika.i = 0;
 }
-
 
 void	init_flag(t_game *game)
 {
