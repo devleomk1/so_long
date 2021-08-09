@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:17:43 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/02 15:29:24 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 14:43:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
  * check map file components
  * 0 : an empty space.
  * 1 : a wall.
- * C : a collectible.
- * E : map exit.
- * P : the player’s starting position.
+ * C : a Collectible.
+ * E : map Exit.
+ * P : the Player’s starting position.
+ * R : team Rocket. enemy patrol.
  */
 int	check_map_compo(char c)
 {

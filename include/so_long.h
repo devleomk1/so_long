@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 11:52:57 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 14:53:07 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@
 # include "color.h"
 # include "key.h"
 # include "error.h"
+# include "map.h"
 # include "../mlx/mlx.h"
 # include "../lib/include/libft.h"
 # include "../lib/include/get_next_line.h"
 
-# define MAP_EXT		".ber"
-
 # define ASSET_PATH		"../asset/"
-
-# define TILE_SIZE		64
 
 # define TRUE			1
 # define FALSE			0
@@ -60,6 +57,8 @@
 # define PLAYER_SPEED	4
 # define ENEMY_SPEED	8
 
+typedef struct s_map	t_map;
+
 typedef struct s_coord
 {
 	int		x;
@@ -88,7 +87,6 @@ typedef struct s_tile
 	t_img	tl;
 	t_img	tb;
 	t_img	ts;
-	t_img	nl;
 }			t_tile;
 
 typedef struct s_spr
@@ -111,23 +109,6 @@ typedef struct s_coll
 	t_img	ball;
 	t_clst	*clst;
 }			t_coll;
-
-typedef struct s_compo
-{
-	int		p;
-	int		e;
-	int		c;
-	int		r;
-}			t_compo;
-
-typedef struct s_map
-{
-	int		rows;
-	int		cols;
-	char	**coord;
-	char	*file;
-	t_compo	cnt;
-}			t_map;
 
 typedef struct s_player
 {
@@ -153,7 +134,6 @@ typedef struct s_game
 	void		*win;
 	int			fps;
 	t_img		img64;
-	t_spr		pika;
 	t_img		opening;
 	t_img		gameover;
 	t_img		ending;
@@ -161,6 +141,7 @@ typedef struct s_game
 	t_coll		collec;
 	t_player	player;
 	t_spr		enemy;
+	t_spr		pika;
 	t_coord		dir2coord[5];
 	t_map		maps;
 	t_flags		flag;
@@ -186,18 +167,7 @@ void	move_south(t_game *game, t_spr *sprite);
 void	move_west(t_game *game, t_spr *sprite);
 void	move_east(t_game *game, t_spr *sprite);
 
-int		check_ext(char *str, char *ext);
-int		check_map_compo(char c);
-int		is_map_rectangle(t_game *game, int len2);
-int		is_map_walled(t_map maps);
-void	count_max_rows_cols(t_game *game, int fd);
-void	map_malloc(t_game *game, int fd);
-int		open_file(char *filename);
-void	map_load(t_game *game, char *filename);
-void	get_compo_coord(t_game *game);
-void	file_read(t_game *game, char *filename);
-
-t_clst	*clst_new(t_game *game, int x, int y);
+t_clst	*clst_new(int x, int y);
 t_clst	*clst_last(t_clst *lst);
 void	clst_add_back(t_clst **lst, t_clst *new);
 void	clst_clear(t_clst *head);
@@ -216,7 +186,7 @@ void	event_exit(t_game *game);
 void	init_enemy(t_game *game);
 
 void	move_dir(t_game *game, t_spr *sprite, int dir);
-void	spin_clockwise(t_game *game, t_spr *sprite);
+void	spin_clockwise(t_spr *sprite);
 
 void	init_window(t_game *game);
 

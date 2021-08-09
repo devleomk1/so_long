@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 11:01:18 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 00:29:51 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:28:58 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@ static t_img	*get_enemy_sprimg(t_game *game, int dir)
 {
 	t_img	*spr;
 
-	if (game->enemy.frame == 1)
-		spr = &(game->enemy.imgx[dir][1]);
-	else if (game->enemy.frame == 3)
-		spr = &(game->enemy.imgx[dir][2]);
-	else
-		spr = &(game->enemy.imgx[dir][0]);
+	spr = &(game->enemy.imgx[dir][0]);
 	return (spr);
 }
 

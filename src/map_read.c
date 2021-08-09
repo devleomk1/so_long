@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/07/27 04:32:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:01:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	open_file(char *filename)
 
 void	count_max_rows_cols(t_game *game, int fd)
 {
-	int		read_size;
 	int		tmp_cols;
 	char	c;
 

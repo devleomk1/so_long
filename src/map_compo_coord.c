@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:14:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/05 12:02:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:03:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	_compo_coord(t_game *game, int i, int j)
 	else if (game->maps.coord[i][j] == 'C')
 	{
 		game->maps.cnt.c++;
-		clst_add_back(&(game->collec.clst), clst_new(game, j, i));
+		clst_add_back(&(game->collec.clst), clst_new(j, i));
 	}
 	else if (game->maps.coord[i][j] == 'R')
 	{

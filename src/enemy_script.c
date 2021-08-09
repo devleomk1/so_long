@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 14:40:23 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 11:47:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:02:21 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	enemy_script(t_game *game)
 	if (game->maps.cnt.r > 0)
 	{
 		if (game->fps % 100 == 0 && !game->flag.enemy_walk)
-			spin_clockwise(game, &(game->enemy));
+			spin_clockwise(&(game->enemy));
 		enemy_find_player(game);
 	}
 }

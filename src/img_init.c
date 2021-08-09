@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:18:32 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 12:55:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/08 14:43:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	tile_img_init(t_game *game)
 	game->tile.tl.ptr = ft_xpm_to_img(game, "ladder.xpm");
 	game->tile.tb.ptr = ft_xpm_to_img(game, "num_box_16.xpm");
 	game->tile.ts.ptr = ft_xpm_to_img(game, "stone.xpm");
-	game->tile.nl.ptr = ft_xpm_to_img(game, "black.xpm");
 }
 
 static void	player_img_init(t_game *game)
