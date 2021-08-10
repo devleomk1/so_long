@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   move_spin_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/12 00:54:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 13:35:24 by jisokang         ###   ########.fr       */
+/*   Created: 2021/08/06 12:12:32 by jisokang          #+#    #+#             */
+/*   Updated: 2021/08/10 17:01:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../include_bonus/so_long_bonus.h"
 
-void	exit_err(char *msg)
+void	spin_clockwise(t_spr *sprite)
 {
-	ft_putstr_fd(RED "Error\n" RESET, 2);
-	ft_putstr_fd(YELLOW, 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd(RESET, 2);
-	exit (EXIT_ERR);
-}
-
-void	debug(char *msg, int debug)
-{
-	if (debug == TRUE)
-	{
-		ft_putstr_fd("\t", 1);
-		ft_putstr_fd(msg, 1);
-		ft_putstr_fd(GREEN "\t\tOK\n" RESET, 1);
-	}
+	if (sprite->dir == DIR_NONE)
+		return ;
+	sprite->dir++;
+	if (sprite->dir > DIR_EAST)
+		sprite->dir = DIR_SOUTH;
 }

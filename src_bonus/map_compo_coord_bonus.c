@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_compo_coord.c                                  :+:      :+:    :+:   */
+/*   map_compo_coord_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:14:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 14:31:30 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:01:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../include_bonus/so_long_bonus.h"
 
 static void	init_compo_cnt(t_game *game)
 {

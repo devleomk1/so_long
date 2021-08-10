@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 17:20:42 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:33:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <stdlib.h>
 # include <string.h>
 
-# include "color.h"
-# include "key.h"
-# include "error.h"
-# include "map.h"
-# include "config.h"
+# include "color_bonus.h"
+# include "key_bonus.h"
+# include "error_bonus.h"
+# include "map_bonus.h"
+# include "config_bonus.h"
 # include "../mlx/mlx.h"
 # include "../lib/include/libft.h"
 # include "../lib/include/get_next_line.h"

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_scene.c                                       :+:      :+:    :+:   */
+/*   draw_scene_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:05:07 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 17:16:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:01:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../include_bonus/so_long_bonus.h"
 
 t_img	*get_end_anim_spr(t_game *game)
 {

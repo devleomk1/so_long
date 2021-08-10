@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   move_collision_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/12 00:54:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 13:35:24 by jisokang         ###   ########.fr       */
+/*   Created: 2021/07/27 04:28:20 by jisokang          #+#    #+#             */
+/*   Updated: 2021/08/10 17:01:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../include_bonus/so_long_bonus.h"
 
-void	exit_err(char *msg)
+int	is_collision(t_game *game, t_spr *sprite, int dir)
 {
-	ft_putstr_fd(RED "Error\n" RESET, 2);
-	ft_putstr_fd(YELLOW, 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd(RESET, 2);
-	exit (EXIT_ERR);
-}
+	int		x;
+	int		y;
+	char	c;
 
-void	debug(char *msg, int debug)
-{
-	if (debug == TRUE)
-	{
-		ft_putstr_fd("\t", 1);
-		ft_putstr_fd(msg, 1);
-		ft_putstr_fd(GREEN "\t\tOK\n" RESET, 1);
-	}
+	x = game->dir2coord[dir].x;
+	y = game->dir2coord[dir].y;
+	c = game->maps.coord[sprite->y + y][sprite->x + x];
+	if (c == '1')
+		return (TRUE);
+	else if (c == 'E' && !game->flag.collect_all)
+		return (TRUE);
+	return (FALSE);
 }
