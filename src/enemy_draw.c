@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 11:01:18 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 16:28:58 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:17:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 static t_img	*get_enemy_sprimg(t_game *game, int dir)
 {

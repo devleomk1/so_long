@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:09:39 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 11:50:05 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 20:29:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 void	init_window(t_game *game)
 {
@@ -18,9 +18,13 @@ void	init_window(t_game *game)
 	int	height;
 
 	game->mlx = mlx_init();
+	if (!game->mlx)
+		exit_err("mlx_init() fail\n");
 	width = game->maps.cols * TILE_SIZE;
 	height = game->maps.rows * TILE_SIZE;
 	game->win = mlx_new_window(game->mlx, width, height, "so_long");
+	if (!game->win)
+		exit_err("init_window fail\n");
 }
 
 void	init_player(t_game *game)

@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 07:08:11 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 13:03:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:17:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 t_clst	*clst_new(int x, int y)
 {

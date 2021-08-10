@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:12:02 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 10:35:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:17:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 void	event_exit(t_game *game)
 {

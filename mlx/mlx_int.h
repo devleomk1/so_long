@@ -14,6 +14,7 @@
 #define FONT_WIDTH	10
 #define	FONT_HEIGHT	20
 
+
 typedef int (*func_t)();
 
 /* structs */

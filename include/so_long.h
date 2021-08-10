@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:51:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 14:53:07 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 20:26:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "../lib/include/libft.h"
 # include "../lib/include/get_next_line.h"
 
-# define ASSET_PATH		"../asset/"
+# define ASSET_PATH		"./asset/"
 
 # define TRUE			1
 # define FALSE			0

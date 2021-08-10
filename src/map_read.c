@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 13:01:23 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 20:32:06 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 /**
  * 			col 0	col 1

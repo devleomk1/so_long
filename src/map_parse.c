@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 04:17:43 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 14:43:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:17:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 /**
  * check map file components

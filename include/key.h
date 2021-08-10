@@ -6,13 +6,12 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 02:27:06 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/07 17:41:53 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 20:07:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_H
 # define KEY_H
-# include "so_long.h"
 
 # define X_EVENT_KEY_PRESS		2
 

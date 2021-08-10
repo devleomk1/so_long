@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 23:09:34 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 13:01:11 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 20:31:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 int	close_game(void)
 {

@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 05:47:08 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/08 12:53:05 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/09 20:30:35 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 void	*ft_xpm_to_img(t_game *game, char *str)
 {
@@ -21,6 +21,9 @@ void	*ft_xpm_to_img(t_game *game, char *str)
 	img = mlx_xpm_file_to_image(game->mlx, path,
 			&(game->img64.w), &(game->img64.h));
 	free(path);
+	if (img == NULL)
+		exit_err("XPM to image fail! "
+			"please check ASSET_PATH or image file.\n");
 	return (img);
 }
 

@@ -11,7 +11,6 @@
 #include "mlx_new_window.h"
 
 
-
 void    *mlx_new_image(mlx_ptr_t *mlx_ptr, int width, int height)
 {
   mlx_img_list_t        *newimg;
@@ -45,7 +44,6 @@ mlx_img_ctx_t	*add_img_to_ctx(mlx_img_list_t *img, mlx_win_list_t *win)
 	return (imgctx);
       imgctx = imgctx->next;
     }
-
   imgctx = malloc(sizeof(*imgctx));
   imgctx->img = img;
   imgctx->next = win->img_list;
@@ -143,7 +141,7 @@ int mlx_string_put(mlx_ptr_t *mlx_ptr, mlx_win_list_t *win_ptr, int x, int y, in
     }
 
   win_ptr->nb_flush ++;
-  
+
   return (0);
 }
 
