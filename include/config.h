@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:18:05 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 16:19:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/08/19 17:16:25 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  *------------------------------*/
 /* 1 : Debug mode ON
  * 0 : Debug mode OFF */
-# define DEBUG			0
+# define DEBUG			1
 
 /*------------------------------
  * GAME MODE OPTION
