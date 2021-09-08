@@ -4,5 +4,5 @@
 # 실행방법
 ```bash
 $ make bonus
-$ ./so_long_bonus map_sl.ber
+$ ./so_long_bonus ./map/map_sl.ber
 ```
