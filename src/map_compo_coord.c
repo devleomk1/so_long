@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 02:14:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 14:31:30 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/09/30 01:17:32 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	_compo_coord(t_game *game, int i, int j)
 int	check_compo_cnt(t_game *game)
 {
 	if (!(0 < game->maps.cnt.p && game->maps.cnt.p <= COMPO_P_MAX))
+		return (FALSE);
+	if (!(0 < game->maps.cnt.p && game->maps.cnt.p <= COMPO_C_MAX))
 		return (FALSE);
 	if (!(0 < game->maps.cnt.e && game->maps.cnt.e <= COMPO_E_MAX))
 		return (FALSE);

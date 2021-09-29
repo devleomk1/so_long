@@ -6,13 +6,21 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:14:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/10 16:35:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/09/30 01:24:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 
+/**
+ * [Component]
+ * The component is an element that contains map file.
+ * 'p' : player
+ * 'e' : exit
+ * 'c' : collectible item
+ * 'r' : Team Rocket (enemy)
+ *  */
 typedef struct s_compo
 {
 	int		p;

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:18:05 by jisokang          #+#    #+#             */
-/*   Updated: 2021/08/19 17:16:25 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/09/30 01:15:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
  * COMPO OPTION
  *------------------------------*/
 # define COMPO_P_MAX	1
+# define COMPO_C_MAX	1
 # define COMPO_E_MAX	1
 # define COMPO_R_MAX	0
 
