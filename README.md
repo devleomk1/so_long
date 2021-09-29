@@ -12,9 +12,12 @@ $ ./so_long_bonus ./map/map_sl.ber
 ```
 
 ### HOW TO PLAY
+The player’s goal is to collect all collectibles present on the map then escape with minimal movement.
+
  * `W`, `↑` : Move up.
  * `S`, `↓` : Move up.
  * `A`, `←` : Move up.
  * `D`, `→` : Move up.
  * `return ⏎` : Start game.
  * `R` : Retry.
+ * `ESC ⎋` : Close the game window.
