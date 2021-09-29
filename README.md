@@ -1,15 +1,20 @@
 # so_long
-이 프로젝트는 매우 작은 2D 게임입니다. 텍스처, 스프라이트로 작업 할 수 있도록 제작되었습니다. 그리고 매우 기본적인 게임 플레이 요소가 있습니다.
 
-## 실행방법
+## Goals
+This project is a very small 2D game. It is built to make you work with textures, sprites. And some very basic gameplay elements.
+
+## Getting Started
+
+### Install
 ```bash
 $ make bonus
 $ ./so_long_bonus ./map/map_sl.ber
 ```
-## HOW TO PLAY
- * `W`, `↑` : 위로 이동
- * `S`, `↓` : 아래로 이동
- * `A`, `←` : 왼쪽으로 이동
- * `D`, `→` : 오른쪽으로 이동
- * `return ⏎` : 게임 시작
- * `R` : 게임 다시 시작
+
+### HOW TO PLAY
+ * `W`, `↑` : Move up.
+ * `S`, `↓` : Move up.
+ * `A`, `←` : Move up.
+ * `D`, `→` : Move up.
+ * `return ⏎` : Start game.
+ * `R` : Retry.
