@@ -1,7 +1,6 @@
 # so_long
 ![jisokang's so_long Score](https://badge42.herokuapp.com/api/project/jisokang/so_long)
 ![](so_long_play_screen_shot.png)
-
 This is a small game project from 42school implemented using MiniLibX. The project is inspired by Game Freak Pokemon Firered.
 
 ## Goals
@@ -27,6 +26,6 @@ The player’s goal is to collect all collectibles present on the map then escap
  * `ESC ⎋` : Close the game window.
 
 ## Reference
- * [42Paris/minilibx-linux]https://github.com/42Paris/minilibx-linux
- * [42Docs/minilibx]https://harm-smits.github.io/42docs/libs/minilibx
- * [pret/Disassembly of Pokémon FireRed and LeafGreen]https://github.com/pret/pokefirered
+ * [42Paris/minilibx-linux](https://github.com/42Paris/minilibx-linux)
+ * [42Docs/minilibx](https://harm-smits.github.io/42docs/libs/minilibx)
+ * [pret/Disassembly of Pokémon FireRed and LeafGreen](https://github.com/pret/pokefirered)
