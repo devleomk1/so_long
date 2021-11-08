@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/08 15:04:33 by jisokang          #+#    #+#              #
-#    Updated: 2021/08/10 17:04:42 by jisokang         ###   ########.fr        #
+#    Updated: 2021/11/01 23:39:43 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,6 @@ bonus : $(NAME_BONUS)
 $(NAME_BONUS) : $(OBJS_BONUS)
 	make -C $(LIB_DIR)
 	make -C $(MLX_DIR)
-	$(CC) -o $(NAME_BONUS) $(OBJS_BONUS) -L $(LIB_DIR) -l_jisokang -I $(INCS_BONUS_DIR) -L $(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
+	$(CC) -o $(NAME_BONUS) $(OBJS_BONUS) -L $(LIB_DIR) -l_jisokang -I $(INCS_BONUS_DIR) -L $(MLX_DIR) -lmlx -fsanitize=address -framework OpenGL -framework Appkit
 
 PHONY	: all clean fclean re bonus
