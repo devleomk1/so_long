@@ -11,8 +11,18 @@ This project is a very small 2D game. It is built to make you work with textures
 ### Install
 ```bash
 $ make bonus
-$ ./so_long_bonus ./map/map_sl.ber
 ```
+
+### Usage
+```bash
+$ ./so_long_bonus [MAP_FILE.ber]
+```
+Only map files with extension `.ber` are available. Map file examples are available in the `map/` directory.
+
+```bash
+$ ./so_long_bonus map/map_sl.ber
+```
+Run the code to use all the features of the game.
 
 ### HOW TO PLAY
 The player’s goal is to collect all collectibles present on the map then escape with minimal movement.
