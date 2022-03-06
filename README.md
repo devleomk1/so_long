@@ -7,9 +7,8 @@ This is a small game project from 42school implemented using MiniLibX. The proje
 This project is a very small 2D game. It is built to make you work with textures, sprites. And some very basic gameplay elements.
 
 ## Getting Started
-```
-🚨 Please check the issue/#1 before start.
-```
+>🚨 Please check the issue/#1 before start.
+
 ### Install
 ```bash
 $ make bonus
