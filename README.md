@@ -1,5 +1,5 @@
 # so_long
-![jisokang's so_long Score](https://badge42.herokuapp.com/api/project/jisokang/so_long)
+[![jisokang's 42 so_long Score](https://badge42.vercel.app/api/v2/cl3wfqiem000609jsr6tci7fi/project/2193781)](https://github.com/JaeSeoKim/badge42)
 ![so long play screen shot](so_long_play_screen_shot.png)
 This is a small game project from 42school implemented using MiniLibX. This project is inspired by Game Freak's Pokemon Firered.
 
