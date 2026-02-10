@@ -52,7 +52,7 @@ void	enemy_script(t_game *game)
 {
 	if (game->maps.cnt.r > 0)
 	{
-		if (game->fps % 100 == 0 && !game->flag.enemy_walk)
+		if (game->fps % TARGET_FPS == 0 && !game->flag.enemy_walk)
 			spin_clockwise(&(game->enemy));
 		enemy_find_player(game);
 	}

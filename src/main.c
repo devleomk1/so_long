@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+#include <unistd.h>
 
 int	close_game(t_game *game)
 {
@@ -39,6 +40,7 @@ int	main_loop(t_game *game)
 		draw_step_count(game);
 	}
 	frame_cunt(game);
+	usleep(1000000 / TARGET_FPS);
 	return (0);
 }
 
