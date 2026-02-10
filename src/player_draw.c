@@ -31,7 +31,6 @@ void	draw_player_walk(t_game *game, t_spr *player, t_img *sprite, int dir)
 	int	x;
 	int	y;
 
-	game->flag.held_keys = TRUE;
 	x = (player->x0 * TILE_SIZE)
 		+ (game->dir2coord[dir].x * player->i * player->move);
 	y = ((player->y0 - 1) * TILE_SIZE)

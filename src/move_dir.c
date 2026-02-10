@@ -27,11 +27,18 @@ void	move_dir(t_game *game, t_spr *sprite, int dir)
 		sprite->y += game->dir2coord[dir].y;
 		sprite->step++;
 		if (sprite == &(game->player.spr))
+		{
 			game->flag.step_cnt = TRUE;
+			game->flag.held_keys = TRUE;
+			game->flag.player_walk = TRUE;
+		}
 	}
 	else
+	{
 		sprite->move = FALSE;
-	game->flag.player_walk = TRUE;
+		if (sprite == &(game->player.spr))
+			game->flag.player_walk = FALSE;
+	}
 }
 
 void	move_north(t_game *game, t_spr *sprite)
