@@ -51,4 +51,9 @@
 # define PLAYER_SPEED	4
 # define ENEMY_SPEED	8
 
+/*------------------------------
+ * FRAME OPTION
+ *------------------------------*/
+# define TARGET_FPS		60
+
 #endif

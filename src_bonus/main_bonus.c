@@ -11,6 +11,35 @@
 /* ************************************************************************** */
 
 #include "../include_bonus/so_long_bonus.h"
+#include <unistd.h>
+#include <sys/time.h>
+
+
+
+static long	now_us(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000000L) + tv.tv_usec);
+}
+
+static void	frame_sync(void)
+{
+	static long	next_frame_us;
+	long			now;
+	long			frame_time;
+
+	frame_time = 1000000L / TARGET_FPS;
+	now = now_us();
+	if (next_frame_us == 0)
+		next_frame_us = now + frame_time;
+	if (next_frame_us > now)
+		usleep(next_frame_us - now);
+	else
+		next_frame_us = now;
+	next_frame_us += frame_time;
+}
 
 int	close_game(t_game *game)
 {
@@ -39,6 +68,7 @@ int	main_loop(t_game *game)
 		draw_step_count(game);
 	}
 	frame_cunt(game);
+	frame_sync();
 	return (0);
 }
 
